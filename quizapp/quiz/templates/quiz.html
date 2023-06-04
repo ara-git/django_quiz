@@ -22,6 +22,8 @@
     </ul>
     <p>Correct Answer: {{ quiz.answer }}</p>
     {% endfor %}
+
+    <p><a href="{% url goto %}">{{goto}}</a></p>
 </body>
 
 </html>

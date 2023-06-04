@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from quiz.views import quiz_view
 from django.contrib import admin
+
+# viewsから関数を読み込む
+from quiz.views import quiz_view
+from quiz.views import next
+
 
 urlpatterns = [
     path("quiz/", quiz_view, name="quiz"),
+    path("next/", next, name="next"),
     path("admin/", admin.site.urls),
 ]
