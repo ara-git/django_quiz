@@ -22,7 +22,7 @@ from quiz.views import quiz_individual
 
 
 urlpatterns = [
-    path("quiz/", quiz_top, name="quiz"),
+    path("quiz/", quiz_top.as_view(), name="quiz"),
     path("quiz/next/", quiz_individual, name="next"),
     path("admin/", admin.site.urls),
 ]
