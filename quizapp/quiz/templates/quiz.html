@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>タイトル</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'quiz/css/style.css' %}" />
+</head>
+
+<body class="container">
+    <h1 class="display-4 text-primary"> {{title}}</h1>
+
+    {% for quiz in quizzes %}
+    <h2>{{ quiz.question }}</h2>
+    <ul>
+        <li>{{ quiz.option1 }}</li>
+        <li>{{ quiz.option2 }}</li>
+        <li>{{ quiz.option3 }}</li>
+        <li>{{ quiz.option4 }}</li>
+    </ul>
+    <p>Correct Answer: {{ quiz.answer }}</p>
+    {% endfor %}
+</body>
+
+</html>
