@@ -17,12 +17,12 @@ from django.urls import path
 from django.contrib import admin
 
 # viewsから関数を読み込む
-from quiz.views import quiz_view
-from quiz.views import next
+from quiz.views import quiz_top
+from quiz.views import quiz_individual
 
 
 urlpatterns = [
-    path("quiz/", quiz_view, name="quiz"),
-    path("next/", next, name="next"),
+    path("quiz/", quiz_top, name="quiz"),
+    path("quiz/next/", quiz_individual, name="next"),
     path("admin/", admin.site.urls),
 ]
