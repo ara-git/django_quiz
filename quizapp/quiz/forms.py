@@ -1,13 +1,14 @@
 from django import forms
 
 
-class HelloForm(forms.Form):
-    name = forms.CharField(
-        label="name", widget=forms.TextInput(attrs={"class": "form-control"})
-    )
-    mail = forms.CharField(
-        label="mail", widget=forms.TextInput(attrs={"class": "form-control"})
-    )
-    age = forms.IntegerField(
-        label="age", widget=forms.NumberInput(attrs={"class": "form-control"})
+class Quiz_options(forms.Form):
+    options = [
+        ("one", "フシギダネ"),
+        ("two", "ガブリアス"),
+        ("tree", "ジバコイル"),
+        ("four", "サンダー"),
+        ("five", "ミライドン"),
+    ]
+    choice = forms.ChoiceField(
+        label="radio", choices=options, widget=forms.Select(attrs={"size": 5})
     )

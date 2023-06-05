@@ -1,0 +1,7 @@
+<!-- 自由入力 -->
+<form action="{% url 'quiz' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- ユーザーによる入力 -->
+    <input type="submit" class="btn btn-primary my-2" value="click">
+</form>
