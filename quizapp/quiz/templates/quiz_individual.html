@@ -17,6 +17,18 @@
 
     <p class="h5 mt-4">{{message|safe}}</p>
 
+    <!-- DBにあるクイズを出力 -->
+    {% for quiz in quizzes %}
+    <h2>{{ quiz.question }}</h2>
+    <ul>
+        <li>{{ quiz.option1 }}</li>
+        <li>{{ quiz.option2 }}</li>
+        <li>{{ quiz.option3 }}</li>
+        <li>{{ quiz.option4 }}</li>
+    </ul>
+    <p>Correct Answer: {{ quiz.answer }}</p>
+    {% endfor %}
+
     <!-- ユーザーによる入力を出力 -->
     <p class="h5 mt-4">{{result|safe}}</p>
 
