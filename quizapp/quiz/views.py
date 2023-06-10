@@ -18,10 +18,7 @@ class quiz_top(TemplateView):
             "form": Quiz_options(),
         }
 
-        # クイズのページをランダムに決める
-        quiz_page_num = random.randrange(1, 150)
-
-        self.params["goto"] = "quiz_" + str(quiz_page_num)
+        self.params["goto"] = "quiz_test_mode"
 
     def get(self, request):
         """
@@ -57,13 +54,40 @@ class quiz_individual(TemplateView):
         """
         paramsの初期値を設定
         """
-        # DBのすべてを呼び出している？
-        quizzes = Quiz.objects.all().values()
-        print(quizzes)
+        # クイズを諸々設定
+        quizzes = [
+            {
+                "question": "q1",
+                "option1": "o1",
+                "option2": "o2",
+                "option3": "o3",
+                "option4": "o4",
+            },
+            {
+                "question": "q2",
+                "option1": "o1",
+                "option2": "o2",
+                "option3": "o3",
+                "option4": "o4",
+            },
+            {
+                "question": "q3",
+                "option1": "o1",
+                "option2": "o2",
+                "option3": "o3",
+                "option4": "o4",
+            },
+        ]
+
+        # クイズのページをランダムに一つ決める
+        quiz_page_num = random.randrange(0, len(quizzes))
+
+        # ランダムにクイズを抽出
+        quiz = quizzes[quiz_page_num]
 
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "quizzes": quizzes,
+            "quiz": quiz,
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
             "goto": "home",

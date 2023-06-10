@@ -17,8 +17,7 @@
 
     <p class="h5 mt-4">{{message|safe}}</p>
 
-    <!-- DBにあるクイズを出力 -->
-    {% for quiz in quizzes %}
+    <!-- クイズを一つ出力 -->
     <h2>{{ quiz.question }}</h2>
     <ul>
         <li>{{ quiz.option1 }}</li>
@@ -27,12 +26,11 @@
         <li>{{ quiz.option4 }}</li>
     </ul>
     <p>Correct Answer: {{ quiz.answer }}</p>
-    {% endfor %}
 
     <!-- ユーザーによる入力を出力 -->
     <p class="h5 mt-4">{{result|safe}}</p>
 
-    <form action="{% url 'quiz_1' %}" method="post">
+    <form action="{% url 'quiz_test_mode' %}" method="post">
         {% csrf_token %}
         <table>
             <!-- 選択ボタン -->
