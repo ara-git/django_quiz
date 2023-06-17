@@ -7,12 +7,8 @@ import random
 
 class quiz_top(TemplateView):
     def __init__(self):
-        # DBのすべてを呼び出している？
-        quizzes = Quiz.objects.all().values()
-
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "quizzes": quizzes,
             "title": "Hello",
             "message": "↓のボタンから個別クイズに飛べるよ",
             "form": Quiz_options(),
@@ -54,40 +50,21 @@ class quiz_individual(TemplateView):
         """
         paramsの初期値を設定
         """
-        # クイズを諸々設定
-        quizzes = [
-            {
-                "question": "q1",
-                "option1": "o1",
-                "option2": "o2",
-                "option3": "o3",
-                "option4": "o4",
-            },
-            {
-                "question": "q2",
-                "option1": "o1",
-                "option2": "o2",
-                "option3": "o3",
-                "option4": "o4",
-            },
-            {
-                "question": "q3",
-                "option1": "o1",
-                "option2": "o2",
-                "option3": "o3",
-                "option4": "o4",
-            },
-        ]
+        # クイズを更新するか否か
+        self.flag_update_quiz = True
 
-        # クイズのページをランダムに一つ決める
-        quiz_page_num = random.randrange(0, len(quizzes))
+        # 名称と番号が記録されたDBを読みこむ
+        # 読み込まれたDBは"query_set"型となる
+        self.poke_db = Quiz.objects.all().values()
 
-        # ランダムにクイズを抽出
-        quiz = quizzes[quiz_page_num]
+        if self.flag_update_quiz:
+            # クイズを作る
+            self._make_quiz_set()
 
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "quiz": quiz,
+            "poke_num_options": self.poke_num_options,
+            "poke_name_options": self.poke_name_options,
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
             "goto": "home",
@@ -105,6 +82,7 @@ class quiz_individual(TemplateView):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
         """
+        self.flag_update_quiz = 0
 
         if "choice" in request.POST.keys():
             """
@@ -120,3 +98,24 @@ class quiz_individual(TemplateView):
             self.params["result"] = "Please select any botton."
 
         return render(request, "quiz_individual.html", self.params)
+
+    def _make_quiz_set(self, num_of_options=4):
+        """
+        DBからクイズを作成
+        具体的には、ポケモンの名前・番号の選択肢と、その答えをランダムに作成する。
+        """
+        # 選択肢となるポケモンの番号のリストを作成
+        self.poke_num_options = random.sample(
+            range(len(self.poke_db)), k=num_of_options
+        )
+
+        # 選択肢となるポケモンの名前のリストを作成
+        self.poke_name_options = []
+        for i in range(num_of_options):
+            self.poke_name_options.append(self.poke_db[self.poke_num_options[i]]["JP"])
+
+        # 答えとなるポケモンの番号を作成
+        self.poke_num_answer = random.randrange(num_of_options)
+
+        # 答えとなるポケモンの名前を作成
+        self.poke_name_answer = self.poke_name_options[self.poke_num_answer]

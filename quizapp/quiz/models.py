@@ -2,12 +2,10 @@ from django.db import models
 
 
 class Quiz(models.Model):
-    question = models.CharField(max_length=255)
-    option1 = models.CharField(max_length=100)
-    option2 = models.CharField(max_length=100)
-    option3 = models.CharField(max_length=100)
-    option4 = models.CharField(max_length=100)
-    answer = models.CharField(max_length=100)
+    # DBからポケモン名を読み込む(変数名はDB列名とそろえる必要がある)
+    # idは指定する必要なし
+    JP = models.CharField(max_length=100)
 
     class Meta:
-        app_label = "quiz"  # app_labelを追加
+        # 読み込むDBテーブルを設定
+        db_table = "pokemon_kanto"
