@@ -166,3 +166,6 @@ class quiz_individual(TemplateView):
 
         # 答えとなるポケモンの名前を作成
         self.poke_name_answer = self.poke_name_all_list[self.poke_num_answer - 1]
+
+        # 左埋め
+        self.poke_num_answer = str(self.poke_num_answer).zfill(3)

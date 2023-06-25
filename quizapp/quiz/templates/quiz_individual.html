@@ -24,15 +24,7 @@
             連続正解数： {{ win_counter }} <br>
         </b></h3>
 
-    <!-- クイズの正解を出力（デバッグ用） -->
-    デバッグ用：
-    {{ poke_num_answer }}
-    {{ poke_name_answer }}
-
-    <!-- ユーザーによる入力を出力（デバッグ用） -->
-    <p class="h5 mt-4"> デバッグ用： {{result|safe}}</p>
-
-    <form action="{% url 'quiz_test_mode' %}" method="post" onsubmit="return validateForm()">
+    <form action="{% url 'quiz_test_mode' %}" method="post" onsubmit="return validateForm()" autocomplete="off">
         {% csrf_token %}
         <!-- 選択ボタン -->
         <input type="text" name="selected_value" list="all_of_pokemons" id="input_text">
@@ -47,8 +39,7 @@
 
     <!-- 音声出力 -->
     <audio controls>
-        <source src="{% static 'quiz/audio/001.wav' %}" , type="audio/wav">
-        <p><a>再生されず</a></p>
+        <source src="{% static 'quiz/audio/'|add:poke_num_answer|add:'.wav' %}" , type="audio/wav">
     </audio>
 </body>
 
