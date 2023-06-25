@@ -65,7 +65,9 @@ class quiz_individual(TemplateView):
         """
 
         if "poke_num_answer" not in request.session:
-            # request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+            """
+            request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+            """
             self._make_quiz_set()
 
             # クイズの正解をrequest.sessionに格納
@@ -86,7 +88,41 @@ class quiz_individual(TemplateView):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
         """
-        # 正解を呼び出す
+        # ユーザーによる選択肢を格納
+        selected_value = request.POST["selected_value"]
+
+        if selected_value == request.session["poke_name_answer"]:
+            """
+            クイズに正解した
+            """
+            # デバッグ用：
+            self.params["result"] = [
+                selected_value,
+                request.session["poke_name_answer"],
+            ]
+            # クイズの正解をリセットする
+            request.session.pop("poke_num_answer")
+            request.session.pop("poke_name_answer")
+        else:
+            """
+            クイズに不正解した
+            """
+            self.params["result"] = [
+                selected_value,
+                request.session["poke_name_answer"],
+            ]
+
+        if "poke_num_answer" not in request.session:
+            """
+            request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+            """
+            self._make_quiz_set()
+
+            # クイズの正解をrequest.sessionに格納
+            request.session["poke_num_answer"] = self.poke_num_answer
+            request.session["poke_name_answer"] = self.poke_name_answer
+
+        # paramsをupdate
         self.params.update(
             {
                 "poke_name_options": self.poke_name_all_list,
@@ -94,31 +130,6 @@ class quiz_individual(TemplateView):
                 "poke_name_answer": request.session["poke_name_answer"],
             }
         )
-
-        if "selected_value" in request.POST.keys():
-            """
-            選択肢が選ばれた状態
-            """
-            # ユーザーによる選択肢を格納
-            selected_value = request.POST["selected_value"]
-
-            if selected_value == request.session["poke_name_answer"]:
-                # 正解
-                self.params["result"] = [
-                    selected_value,
-                    request.session["poke_name_answer"],
-                ]
-            else:
-                # 不正解
-                self.params["result"] = [
-                    selected_value,
-                    request.session["poke_name_answer"],
-                ]
-        else:
-            """
-            選択肢が選ばれていない状態
-            """
-            self.params["result"] = "Please select any pokemon."
 
         return render(request, "quiz_individual.html", self.params)
 

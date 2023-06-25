@@ -15,21 +15,21 @@
 <body class="container">
     <h1 class="display-4 text-primary"> {{title}}</h1>
 
+    <!-- メッセージを出力 -->
     <p class="h5 mt-4">{{message|safe}}</p>
 
+    <!-- クイズの正解を出力（デバッグ用） -->
     {{ poke_num_answer }}
     {{ poke_name_answer }}
-    <input type="hidden" name="poke_num_answer" value=poke_num_answer>
-    <input type="hidden" name="poke_name_answer" value=poke_name_answer>
 
     <!-- ユーザーによる入力を出力 -->
     <p class="h5 mt-4">{{result|safe}}</p>
 
-    <form action="{% url 'quiz_test_mode' %}" method="post">
+    <form action="{% url 'quiz_test_mode' %}" method="post" onsubmit="return validateForm()">
         {% csrf_token %}
         <!-- 選択ボタン -->
-        <input type="text" name="selected_value" list="fruits">
-        <datalist id="fruits">
+        <input type="text" name="selected_value" list="all_of_pokemons" id="input_text">
+        <datalist id="all_of_pokemons">
             {% for option in poke_name_options %}
             <option value="{{ option }}">
                 {% endfor %}
@@ -53,14 +53,14 @@
 
 <script>
     function validateForm() {
-        const inputElement = document.getElementById('my-input');
+        const inputElement = document.getElementById('input_text');
         const selectedValue = inputElement.value;
 
-        const datalistOptions = document.getElementById('options').options;
+        const datalistOptions = document.getElementById('all_of_pokemons').options;
         const validOptions = Array.from(datalistOptions).map(option => option.value);
 
         if (!validOptions.includes(selectedValue)) {
-            alert('Please select a value from the list.');
+            alert('リストから選択してね！');
             return false; // 画面遷移をキャンセルする
         }
 
