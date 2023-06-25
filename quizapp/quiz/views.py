@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import Quiz
-from .forms import Quiz_options
 import random
 
 
@@ -10,8 +9,7 @@ class quiz_top(TemplateView):
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
             "title": "Hello",
-            "message": "↓のボタンから個別クイズに飛べるよ",
-            "form": Quiz_options(),
+            "message": "↓のボタンからゲームを始めてね",
         }
 
         self.params["goto"] = "quiz_test_mode"
@@ -20,6 +18,10 @@ class quiz_top(TemplateView):
         """
         get時（普通にアクセスしたとき）の挙動を定義
         """
+        # 正解数の初期値を設定する
+        request.session["win_counter"] = 0
+        # 残機の初期値を設定する
+        request.session["life"] = 3
         return render(request, "home.html", self.params)
 
     def post(self, request):
@@ -29,7 +31,6 @@ class quiz_top(TemplateView):
         chk = request.POST["choice"]
         self.params["result"] = "you selected: " + chk
 
-        self.params["form"] = Quiz_options(request.POST)
         return render(request, "top.html", self.params)
 
 
@@ -54,8 +55,7 @@ class quiz_individual(TemplateView):
         self.params = {
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
-            "goto": "homeに戻る",
-            "form": Quiz_options(),  # フォームを呼び出し
+            "goto": "home",
             "result": None,
         }
 
@@ -77,7 +77,6 @@ class quiz_individual(TemplateView):
         """
         正解数の初期値を設定
         """
-        request.session["win_counter"] = 0
 
         """
         パラメータをupdate
@@ -88,6 +87,7 @@ class quiz_individual(TemplateView):
                 "poke_num_answer": request.session["poke_num_answer"],
                 "poke_name_answer": request.session["poke_name_answer"],
                 "win_counter": request.session["win_counter"],
+                "life": request.session["life"],
             }
         )
         return render(request, "quiz_individual.html", self.params)
@@ -108,53 +108,89 @@ class quiz_individual(TemplateView):
         # ユーザーによる選択肢を格納
         selected_value = request.POST["selected_value"]
 
+        # デバッグ用：
+        self.params["result"] = [
+            selected_value,
+            request.session["poke_name_answer"],
+        ]
+
         if selected_value == request.session["poke_name_answer"]:
             """
             クイズに正解した
+            1. 正解カウントを増やす
+            2. クイズを更新
+            3. パラメータ(params)を更新
             """
-            # デバッグ用：
-            self.params["result"] = [
-                selected_value,
-                request.session["poke_name_answer"],
-            ]
-            # クイズの正解をリセットする
-            request.session.pop("poke_num_answer")
-            request.session.pop("poke_name_answer")
 
             # 正解カウントを増やす
             request.session["win_counter"] += 1
-        else:
-            """
-            クイズに不正解した
-            """
-            self.params["result"] = [
-                selected_value,
-                request.session["poke_name_answer"],
-            ]
 
-        """
-        request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
-        """
-        if "poke_num_answer" not in request.session:
+            # クイズを新規作成し、request.sessionに格納
             self._make_quiz_set()
-
-            # クイズの正解をrequest.sessionに格納
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
 
-        """
-        パラメータをupdate
-        """
-        self.params.update(
-            {
-                "poke_name_options": self.poke_name_all_list,
-                "poke_num_answer": request.session["poke_num_answer"],
-                "poke_name_answer": request.session["poke_name_answer"],
-                "win_counter": request.session["win_counter"],
-            }
-        )
+            # パラメータをupdate
+            self.params.update(
+                {
+                    "poke_name_options": self.poke_name_all_list,
+                    "poke_num_answer": request.session["poke_num_answer"],
+                    "poke_name_answer": request.session["poke_name_answer"],
+                    "win_counter": request.session["win_counter"],
+                    "life": request.session["life"],
+                }
+            )
 
-        return render(request, "quiz_individual.html", self.params)
+            return render(request, "quiz_individual.html", self.params)
+
+        else:
+            """
+            クイズに不正解した
+            1. 正解カウントを増やす
+            2. パラメータ(params)を更新
+            3. クイズを更新
+
+            正解側と2, 3の順が異なるのは、htmlには古いクイズをパラメータとして渡したいため。
+            """
+            # 残機を減らす
+            request.session["life"] -= 1
+
+            if request.session["life"] > 0:
+                """
+                まだ残機が残っている
+                """
+                # パラメータをupdate
+                self.params.update({"goto": "quiz_test_mode"})
+                self.params.update(
+                    {
+                        "poke_name_options": self.poke_name_all_list,
+                        "poke_num_answer": request.session["poke_num_answer"],
+                        "poke_name_answer": request.session["poke_name_answer"],
+                        "win_counter": request.session["win_counter"],
+                        "life": request.session["life"],
+                    }
+                )
+
+                # クイズを新規作成し、request.sessionに格納
+                self._make_quiz_set()
+                request.session["poke_num_answer"] = self.poke_num_answer
+                request.session["poke_name_answer"] = self.poke_name_answer
+
+                # 失敗画面に移動
+                return render(request, "fail.html", self.params)
+
+            else:
+                """
+                ゲームオーバー
+                """
+                # パラメータを更新
+                self.params.update(
+                    {
+                        "win_counter": request.session["win_counter"],
+                    }
+                )
+                # ゲームオーバー画面に繊維
+                return render(request, "game_over.html", self.params)
 
     def _make_quiz_set(self):
         """

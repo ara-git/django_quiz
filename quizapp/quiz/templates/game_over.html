@@ -10,4 +10,13 @@
     <!-- Bootstrapを読み込む-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         crossorigin="anonymous">
+
+    <h1> 残念！ゲームオーバー！！！</h1>
+
+    <h2> あなたの記録は </h2>
+    <!-- 正解数カウントを出力 -->
+    <h3><b>正解数： {{ win_counter }}</b></h3>
+
+    <!-- homeに戻る -->
+    <p><a href="{% url goto %}"> homeに戻る</a></p>
 </head>
