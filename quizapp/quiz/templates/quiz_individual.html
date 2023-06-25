@@ -13,17 +13,24 @@
 </head>
 
 <body class="container">
-    <h1 class="display-4 text-primary"> {{title}}</h1>
+    <!-- メッセージを一番上に出す -->
+    <h1 class="display-4 text-primary"> {{message|safe}}</h1>
 
-    <!-- メッセージを出力 -->
-    <p class="h5 mt-4">{{message|safe}}</p>
+    <!-- homeに戻る -->
+    <p><a href="{% url goto %}">{{goto}}</a></p>
+
+    <!-- 正解数カウントを出力 -->
+    <h3><b>
+            連続正解数： {{ win_counter }} <br>
+        </b></h3>
 
     <!-- クイズの正解を出力（デバッグ用） -->
+    デバッグ用：
     {{ poke_num_answer }}
     {{ poke_name_answer }}
 
-    <!-- ユーザーによる入力を出力 -->
-    <p class="h5 mt-4">{{result|safe}}</p>
+    <!-- ユーザーによる入力を出力（デバッグ用） -->
+    <p class="h5 mt-4"> デバッグ用： {{result|safe}}</p>
 
     <form action="{% url 'quiz_test_mode' %}" method="post" onsubmit="return validateForm()">
         {% csrf_token %}
@@ -37,9 +44,6 @@
         <button type="submit" class="btn btn-primary my-2"> Submit </button>
 
     </form>
-
-    <!-- ボタンによる遷移 -->
-    <p><a href="{% url goto %}">{{goto}}</a></p>
 
     <!-- 音声出力 -->
     <audio controls>

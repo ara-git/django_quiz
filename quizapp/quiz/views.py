@@ -54,7 +54,7 @@ class quiz_individual(TemplateView):
         self.params = {
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
-            "goto": "home",
+            "goto": "homeに戻る",
             "form": Quiz_options(),  # フォームを呼び出し
             "result": None,
         }
@@ -75,6 +75,11 @@ class quiz_individual(TemplateView):
             request.session["poke_name_answer"] = self.poke_name_answer
 
         """
+        正解数の初期値を設定
+        """
+        request.session["win_counter"] = 0
+
+        """
         パラメータをupdate
         """
         self.params.update(
@@ -82,6 +87,7 @@ class quiz_individual(TemplateView):
                 "poke_name_options": self.poke_name_all_list,
                 "poke_num_answer": request.session["poke_num_answer"],
                 "poke_name_answer": request.session["poke_name_answer"],
+                "win_counter": request.session["win_counter"],
             }
         )
         return render(request, "quiz_individual.html", self.params)
@@ -114,6 +120,9 @@ class quiz_individual(TemplateView):
             # クイズの正解をリセットする
             request.session.pop("poke_num_answer")
             request.session.pop("poke_name_answer")
+
+            # 正解カウントを増やす
+            request.session["win_counter"] += 1
         else:
             """
             クイズに不正解した
@@ -141,6 +150,7 @@ class quiz_individual(TemplateView):
                 "poke_name_options": self.poke_name_all_list,
                 "poke_num_answer": request.session["poke_num_answer"],
                 "poke_name_answer": request.session["poke_name_answer"],
+                "win_counter": request.session["win_counter"],
             }
         )
 
