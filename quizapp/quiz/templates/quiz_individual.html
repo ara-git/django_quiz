@@ -19,6 +19,8 @@
 
     {{ poke_num_answer }}
     {{ poke_name_answer }}
+    <input type="hidden" name="poke_num_answer" value=poke_num_answer>
+    <input type="hidden" name="poke_name_answer" value=poke_name_answer>
 
     <!-- ユーザーによる入力を出力 -->
     <p class="h5 mt-4">{{result|safe}}</p>
@@ -47,3 +49,22 @@
 </body>
 
 </html>
+
+
+<script>
+    function validateForm() {
+        const inputElement = document.getElementById('my-input');
+        const selectedValue = inputElement.value;
+
+        const datalistOptions = document.getElementById('options').options;
+        const validOptions = Array.from(datalistOptions).map(option => option.value);
+
+        if (!validOptions.includes(selectedValue)) {
+            alert('Please select a value from the list.');
+            return false; // 画面遷移をキャンセルする
+        }
+
+        // その他の検証処理やフォームの送信などを行う
+        return true;
+    }
+</script>

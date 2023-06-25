@@ -29,14 +29,6 @@ class quiz_top(TemplateView):
         chk = request.POST["choice"]
         self.params["result"] = "you selected: " + chk
 
-        self.params["message"] = (
-            "名前："
-            + request.POST["name"]
-            + "<br>メール："
-            + request.POST["mail"]
-            + "<br>年齢："
-            + request.POST["age"]
-        )
         self.params["form"] = Quiz_options(request.POST)
         return render(request, "top.html", self.params)
 
@@ -58,15 +50,8 @@ class quiz_individual(TemplateView):
         self.poke_db = Quiz.objects.all()
         self.poke_name_all_list = self.poke_db.values_list("JP", flat=True)
 
-        if self.flag_update_quiz:
-            # クイズを作る
-            self._make_quiz_set()
-
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "poke_name_options": self.poke_name_all_list,
-            "poke_num_answer": self.poke_num_answer,
-            "poke_name_answer": self.poke_name_answer,
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
             "goto": "home",
@@ -78,13 +63,37 @@ class quiz_individual(TemplateView):
         """
         get時（普通にアクセスしたとき）の挙動を定義
         """
+
+        if "poke_num_answer" not in request.session:
+            # request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+            self._make_quiz_set()
+
+            # クイズの正解をrequest.sessionに格納
+            request.session["poke_num_answer"] = self.poke_num_answer
+            request.session["poke_name_answer"] = self.poke_name_answer
+
+        # paramsをupdate
+        self.params.update(
+            {
+                "poke_name_options": self.poke_name_all_list,
+                "poke_num_answer": request.session["poke_num_answer"],
+                "poke_name_answer": request.session["poke_name_answer"],
+            }
+        )
         return render(request, "quiz_individual.html", self.params)
 
     def post(self, request):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
         """
-        self.flag_update_quiz = 0
+        # 正解を呼び出す
+        self.params.update(
+            {
+                "poke_name_options": self.poke_name_all_list,
+                "poke_num_answer": request.session["poke_num_answer"],
+                "poke_name_answer": request.session["poke_name_answer"],
+            }
+        )
 
         if "selected_value" in request.POST.keys():
             """
@@ -92,12 +101,24 @@ class quiz_individual(TemplateView):
             """
             # ユーザーによる選択肢を格納
             selected_value = request.POST["selected_value"]
-            self.params["result"] = "you selected: " + selected_value
+
+            if selected_value == request.session["poke_name_answer"]:
+                # 正解
+                self.params["result"] = [
+                    selected_value,
+                    request.session["poke_name_answer"],
+                ]
+            else:
+                # 不正解
+                self.params["result"] = [
+                    selected_value,
+                    request.session["poke_name_answer"],
+                ]
         else:
             """
             選択肢が選ばれていない状態
             """
-            self.params["result"] = "Please select any botton."
+            self.params["result"] = "Please select any pokemon."
 
         return render(request, "quiz_individual.html", self.params)
 
