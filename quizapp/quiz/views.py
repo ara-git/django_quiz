@@ -64,17 +64,19 @@ class quiz_individual(TemplateView):
         get時（普通にアクセスしたとき）の挙動を定義
         """
 
+        """
+        request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+        """
         if "poke_num_answer" not in request.session:
-            """
-            request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
-            """
             self._make_quiz_set()
 
             # クイズの正解をrequest.sessionに格納
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
 
-        # paramsをupdate
+        """
+        パラメータをupdate
+        """
         self.params.update(
             {
                 "poke_name_options": self.poke_name_all_list,
@@ -87,6 +89,15 @@ class quiz_individual(TemplateView):
     def post(self, request):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
+
+        具体的には以下の通り
+        - ユーザーの回答が正解か否かを判定し、その時の挙動も定義
+        - request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+        - パラメータをupdate
+        """
+
+        """
+        ユーザーの回答が正解か否かを判定し、その時の挙動も定義
         """
         # ユーザーによる選択肢を格納
         selected_value = request.POST["selected_value"]
@@ -112,17 +123,19 @@ class quiz_individual(TemplateView):
                 request.session["poke_name_answer"],
             ]
 
+        """
+        request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
+        """
         if "poke_num_answer" not in request.session:
-            """
-            request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
-            """
             self._make_quiz_set()
 
             # クイズの正解をrequest.sessionに格納
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
 
-        # paramsをupdate
+        """
+        パラメータをupdate
+        """
         self.params.update(
             {
                 "poke_name_options": self.poke_name_all_list,
