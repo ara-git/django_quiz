@@ -55,7 +55,8 @@ class quiz_individual(TemplateView):
 
         # 名称と番号が記録されたDBを読みこむ
         # 読み込まれたDBは"query_set"型となる
-        self.poke_db = Quiz.objects.all().values()
+        self.poke_db = Quiz.objects.all()
+        self.poke_name_all_list = self.poke_db.values_list("JP", flat=True)
 
         if self.flag_update_quiz:
             # クイズを作る
@@ -63,8 +64,9 @@ class quiz_individual(TemplateView):
 
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "poke_num_options": self.poke_num_options,
-            "poke_name_options": self.poke_name_options,
+            "poke_name_options": self.poke_name_all_list,
+            "poke_num_answer": self.poke_num_answer,
+            "poke_name_answer": self.poke_name_answer,
             "title": "Hello",
             "message": "なんのポケモンの鳴き声？",
             "goto": "home",
@@ -84,13 +86,13 @@ class quiz_individual(TemplateView):
         """
         self.flag_update_quiz = 0
 
-        if "choice" in request.POST.keys():
+        if "selected_value" in request.POST.keys():
             """
             選択肢が選ばれた状態
             """
             # ユーザーによる選択肢を格納
-            chk = request.POST["choice"]
-            self.params["result"] = "you selected: " + chk
+            selected_value = request.POST["selected_value"]
+            self.params["result"] = "you selected: " + selected_value
         else:
             """
             選択肢が選ばれていない状態
@@ -99,23 +101,13 @@ class quiz_individual(TemplateView):
 
         return render(request, "quiz_individual.html", self.params)
 
-    def _make_quiz_set(self, num_of_options=4):
+    def _make_quiz_set(self):
         """
         DBからクイズを作成
         具体的には、ポケモンの名前・番号の選択肢と、その答えをランダムに作成する。
         """
-        # 選択肢となるポケモンの番号のリストを作成
-        self.poke_num_options = random.sample(
-            range(len(self.poke_db)), k=num_of_options
-        )
-
-        # 選択肢となるポケモンの名前のリストを作成
-        self.poke_name_options = []
-        for i in range(num_of_options):
-            self.poke_name_options.append(self.poke_db[self.poke_num_options[i]]["JP"])
-
         # 答えとなるポケモンの番号を作成
-        self.poke_num_answer = random.randrange(num_of_options)
+        self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
 
         # 答えとなるポケモンの名前を作成
-        self.poke_name_answer = self.poke_name_options[self.poke_num_answer]
+        self.poke_name_answer = self.poke_name_all_list[self.poke_num_answer - 1]
