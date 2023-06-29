@@ -49,7 +49,7 @@ class quiz_individual(TemplateView):
         # 名称と番号が記録されたDBを読みこむ
         # 読み込まれたDBは"query_set"型となる
         self.poke_db = Quiz.objects.all()
-        self.poke_name_all_list = self.poke_db.values_list("JP", flat=True)
+        self.poke_name_all_list = self.poke_db.values_list("name", flat=True)
 
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
