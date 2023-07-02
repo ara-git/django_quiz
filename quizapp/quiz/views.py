@@ -8,8 +8,8 @@ class quiz_top(TemplateView):
     def __init__(self):
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "title": "Hello",
-            "message": "↓のボタンからゲームを始めてね",
+            "title": "ポケモン鳴き声クイズ",
+            "message": "↓のボタンからゲームスタート！",
         }
 
         self.params["goto"] = "quiz_mode"
@@ -58,8 +58,8 @@ class quiz_individual(TemplateView):
 
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
-            "title": "Hello",
-            "message": "なんのポケモンの鳴き声？",
+            "title": "ポケモン鳴き声クイズ",
+            "message": "どのポケモンの鳴き声？",
             "goto": "home",
             "result": None,
         }
@@ -184,11 +184,14 @@ class quiz_individual(TemplateView):
                 # パラメータを更新
                 self.params.update(
                     {
+                        "poke_name_options": self.poke_name_all_list,
+                        "poke_num_answer": request.session["poke_num_answer"],
+                        "poke_name_answer": request.session["poke_name_answer"],
                         "win_counter": request.session["win_counter"],
                     }
                 )
 
-                # クイズを作成する
+                # クイズを作成する(次のクイズに向けて)
                 self._make_quiz_set(mode=request.session["mode"])
 
                 # クイズの正解をrequest.sessionに格納

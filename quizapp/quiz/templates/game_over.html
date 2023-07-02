@@ -13,6 +13,17 @@
 
     <h1> 残念！ゲームオーバー！！！</h1>
 
+    <!-- 正解を表示する-->
+    正解は<br>
+    {{ poke_name_answer }}
+    <br>
+
+    <!-- 音声出力 -->
+    <audio controls>
+        <source src="{% static 'quiz/audio/'|add:poke_num_answer|add:'.wav' %}" , type="audio/wav">
+    </audio>
+
+    <br> <br> <br> <br> <br>
     <h2> あなたの記録は </h2>
     <!-- 正解数カウントを出力 -->
     <h3><b>正解数： {{ win_counter }}</b></h3>
