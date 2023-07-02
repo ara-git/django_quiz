@@ -198,8 +198,8 @@ class quiz_individual(TemplateView):
         具体的には、ポケモンの名前・番号の選択肢と、その答えをランダムに作成する。
         """
         # 答えとなるポケモンの番号を作成
-        self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
-
+        # self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
+        self.poke_num_answer = random.randint(1, 649)
         # 答えとなるポケモンの名前を作成
         self.poke_name_answer = self.poke_name_all_list[self.poke_num_answer - 1]
 
