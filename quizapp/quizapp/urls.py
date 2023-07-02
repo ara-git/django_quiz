@@ -7,6 +7,6 @@ from quiz.views import quiz_individual
 
 urlpatterns = [
     path("quiz/", quiz_top.as_view(), name="home"),
-    path("quiz/test_mode", quiz_individual.as_view(), name="quiz_test_mode"),
+    path("quiz/quiz_mode", quiz_individual.as_view(), name="quiz_mode"),
     path("admin/", admin.site.urls),
 ]

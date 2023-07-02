@@ -34,10 +34,10 @@
     <!-- ユーザーによる入力を出力（デバッグ用） -->
     <p class="h5 mt-4"> デバッグ用： {{result|safe}}</p>
 
-    <form action="{% url 'quiz_test_mode' %}" method="post" onsubmit="return validateForm()" autocomplete="off">
+    <form action="{% url 'quiz_mode' %}" method="post" onsubmit="return validateForm()" autocomplete="off">
         {% csrf_token %}
         <!-- 選択ボタン -->
-        <input type="text" name="selected_value" list="all_of_pokemons" id="input_text">
+        <input type="text" name="selected_pokemon" list="all_of_pokemons" id="input_text">
         <datalist id="all_of_pokemons">
             {% for option in poke_name_options %}
             <option value="{{ option }}">

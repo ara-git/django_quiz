@@ -12,7 +12,7 @@ class quiz_top(TemplateView):
             "message": "↓のボタンからゲームを始めてね",
         }
 
-        self.params["goto"] = "quiz_test_mode"
+        self.params["goto"] = "quiz_mode"
 
     def get(self, request):
         """
@@ -105,16 +105,16 @@ class quiz_individual(TemplateView):
         """
         ユーザーの回答が正解か否かを判定し、その時の挙動も定義
         """
-        # ユーザーによる選択肢を格納
-        selected_value = request.POST["selected_value"]
+        # ユーザーによる回答を格納
+        selected_pokemon = request.POST["selected_pokemon"]
 
         # デバッグ用：
         self.params["result"] = [
-            selected_value,
+            selected_pokemon,
             request.session["poke_name_answer"],
         ]
 
-        if selected_value == request.session["poke_name_answer"]:
+        if selected_pokemon == request.session["poke_name_answer"]:
             """
             クイズに正解した
             1. 正解カウントを増やす
@@ -160,7 +160,7 @@ class quiz_individual(TemplateView):
                 まだ残機が残っている
                 """
                 # パラメータをupdate
-                self.params.update({"goto": "quiz_test_mode"})
+                self.params.update({"goto": "quiz_mode"})
                 self.params.update(
                     {
                         "poke_name_options": self.poke_name_all_list,
