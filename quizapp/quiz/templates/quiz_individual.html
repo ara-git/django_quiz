@@ -33,7 +33,6 @@
 
     <!-- ユーザーによる入力を出力（デバッグ用） -->
     <p class="h5 mt-4"> デバッグ用： {{result|safe}}</p>
-
     <form action="{% url 'quiz_mode' %}" method="post" onsubmit="return validateForm()" autocomplete="off">
         {% csrf_token %}
         <!-- 選択ボタン -->

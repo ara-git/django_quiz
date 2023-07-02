@@ -22,14 +22,19 @@ class quiz_top(TemplateView):
         request.session["win_counter"] = 0
         # 残機の初期値を設定する
         request.session["life"] = 3
+
+        # ↓後で消す
+        request.session["mode"] = "classic"
+
         return render(request, "home.html", self.params)
 
     def post(self, request):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
         """
-        chk = request.POST["choice"]
-        self.params["result"] = "you selected: " + chk
+        # ユーザーが入力したモードを保存する
+        # request.session["mode"] = request.POST["mode_option"]
+        request.session["mode"] = "classic"
 
         return render(request, "top.html", self.params)
 
@@ -67,13 +72,6 @@ class quiz_individual(TemplateView):
         """
         request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
         """
-        if "poke_num_answer" not in request.session:
-            self._make_quiz_set()
-
-            # クイズの正解をrequest.sessionに格納
-            request.session["poke_num_answer"] = self.poke_num_answer
-            request.session["poke_name_answer"] = self.poke_name_answer
-
         """
         正解数の初期値を設定
         """
@@ -126,7 +124,7 @@ class quiz_individual(TemplateView):
             request.session["win_counter"] += 1
 
             # クイズを新規作成し、request.sessionに格納
-            self._make_quiz_set()
+            self._make_quiz_set(mode=request.session["mode"])
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
 
@@ -172,7 +170,7 @@ class quiz_individual(TemplateView):
                 )
 
                 # クイズを新規作成し、request.sessionに格納
-                self._make_quiz_set()
+                self._make_quiz_set(mode=request.session["mode"])
                 request.session["poke_num_answer"] = self.poke_num_answer
                 request.session["poke_name_answer"] = self.poke_name_answer
 
@@ -189,19 +187,33 @@ class quiz_individual(TemplateView):
                         "win_counter": request.session["win_counter"],
                     }
                 )
-                # ゲームオーバー画面に繊維
+
+                # クイズを作成する
+                self._make_quiz_set(mode=request.session["mode"])
+
+                # クイズの正解をrequest.sessionに格納
+                request.session["poke_num_answer"] = self.poke_num_answer
+                request.session["poke_name_answer"] = self.poke_name_answer
+
+                # ゲームオーバー画面に遷移
                 return render(request, "game_over.html", self.params)
 
-    def _make_quiz_set(self):
+    def _make_quiz_set(self, mode):
         """
         DBからクイズを作成
         具体的には、ポケモンの名前・番号の選択肢と、その答えをランダムに作成する。
+
+        Augs
+            mode: classicかmodernか。この値で乱数の範囲を決める. 機能追加するまではイッシュ地方まで
         """
         # 答えとなるポケモンの番号を作成
-        # self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
-        self.poke_num_answer = random.randint(1, 649)
+        if mode == "classic":
+            self.poke_num_answer = random.randint(1, 649)
+        else:
+            self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
+
         # 答えとなるポケモンの名前を作成
         self.poke_name_answer = self.poke_name_all_list[self.poke_num_answer - 1]
 
-        # 左埋め
+        # 図鑑番号を左埋め
         self.poke_num_answer = str(self.poke_num_answer).zfill(3)
