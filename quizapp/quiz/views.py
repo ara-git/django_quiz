@@ -2,14 +2,19 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import Quiz
 import random
+import yaml
 
 
 class quiz_top(TemplateView):
     def __init__(self):
+        with open("./quiz/static/quiz/url/config.yaml", "r") as file:
+            config = yaml.safe_load(file)
+
         # パラメータを設定("goto"で指定しているのは、urlの名称。名称とurlの紐づけはurls.pyで指定)
         self.params = {
             "title": "ポケモン鳴き声クイズ",
             "message": "↓のボタンからゲームスタート！",
+            "form_url": config["form_url"],
         }
 
         self.params["goto"] = "quiz_mode"
@@ -34,7 +39,6 @@ class quiz_top(TemplateView):
         """
         # ユーザーが入力したモードを保存する
         # request.session["mode"] = request.POST["mode_option"]
-        request.session["mode"] = "classic"
 
         return render(request, "top.html", self.params)
 
