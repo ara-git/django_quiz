@@ -76,6 +76,12 @@ class quiz_individual(TemplateView):
         """
         request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
         """
+        if "poke_num_answer" not in request.session:
+            self._make_quiz_set(mode=request.session["mode"])
+            # クイズの正解をrequest.sessionに格納
+            request.session["poke_num_answer"] = self.poke_num_answer
+            request.session["poke_name_answer"] = self.poke_name_answer
+
         """
         正解数の初期値を設定
         """

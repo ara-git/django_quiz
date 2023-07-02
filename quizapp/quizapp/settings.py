@@ -25,8 +25,14 @@ SECRET_KEY = "django-insecure-c%#)1_2-b7c3f==$=_dl$ijk+4xxl%1@aww5qyierxdj3lkrc7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", ".pythonanywhere.com", "{|ユーザ名|}.pythonanywhere.com"]
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+from django.core.management.utils import get_random_secret_key
+
+SECRET_KEY = get_random_secret_key()
 
 # Application definition
 
