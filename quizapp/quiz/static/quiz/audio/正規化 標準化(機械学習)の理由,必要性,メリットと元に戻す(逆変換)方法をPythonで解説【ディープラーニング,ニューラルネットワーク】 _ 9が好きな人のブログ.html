@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)https://nine-num-98.blogspot.com/2019/12/ai-normalization.html -->
+<html class="v2" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/3566091532-css_bundle_v2.css" rel="stylesheet" type="text/css">
+<!-- Google tag (gtag.js) -->
+<script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/f.txt"></script><script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/f(1).txt" id="google_shimpl"></script><script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/sdk.js.ダウンロード" async="" crossorigin="anonymous"></script><script id="facebook-jssdk" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/sdk.js(1).ダウンロード"></script><script async="" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/analytics.js.ダウンロード"></script><script async="" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/gtm.js.ダウンロード"></script><script async="async" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DPMWXP1JF9');
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NKH83HL');</script>
+<!-- End Google Tag Manager -->
+<script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/jquery.min.js.ダウンロード" type="text/javascript"></script>
+<link href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/font-awesome.min.css" rel="stylesheet">
+<!--Twitter Cards Start-->
+<meta content="summary" name="twitter:card">
+<meta content="@Kotetsu0989" name="twitter:site">
+<meta content="@Kotetsu0989" name="twitter:creator">
+<meta content="https://nine-num-98.blogspot.com/" name="twitter:domain">
+<meta content="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" name="twitter:url">
+<meta content="正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】" name="twitter:title">
+<meta content="https://images-fe.ssl-images-amazon.com/images/I/41rdIpmxJ7L._SL160_.jpg" name="twitter:image:src">
+<!--Twitter Cards End-->
+<meta content="width=device-width" name="viewport">
+
+<meta content="blogger" name="generator">
+<link href="https://nine-num-98.blogspot.com/favicon.ico" rel="icon" type="image/x-icon">
+<link href="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="9が好きな人のブログ - Atom" href="https://nine-num-98.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="9が好きな人のブログ - RSS" href="https://nine-num-98.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="9が好きな人のブログ - Atom" href="https://draft.blogger.com/feeds/3795823380508458595/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="9が好きな人のブログ - Atom" href="https://nine-num-98.blogspot.com/feeds/279592882270766003/comments/default">
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+<link href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/41rdIpmxJ7L._SL160_.jpg" rel="image_src">
+<meta content="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" property="og:url">
+<meta content="正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】" property="og:title">
+<meta content="アニメ・ゲーム・IT・AIの話題中心のブログです。よろしくお願いします～" property="og:description">
+<meta content="https://lh3-testonly.googleusercontent.com/blogger_img_proxy/AByxGDTgUTk9NwDqSr-nzDKrFqgDoG13xUxZUxBo7veXbJlotlCXCCMGoCYCtL0bjLwbjryPuAT2-Sg1s9erbr02QG8Ml11Du9V1VCNlYTDFA_0WxgI93lqd3X_wExIeDMHoZBSqkl-pkh4Adkdd=w1200-h630-p-k-no-nu" property="og:image">
+<!--404ページのタイトル ここから-->
+<!--404ページのタイトル ここまで-->
+<!--ブログタイトル-->
+<!--記事ページのタイトル-->
+<title>
+正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 | 9が好きな人のブログ
+</title>
+<!--CSS-->
+<style id="page-skin-1" type="text/css"><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:Vaster2
+Designer: Toumasu
+URL:www.vaster2.com
+----------------------------------------------- */
+<Group description="ページ全体の背景" selector="body">
+<Variable name="body.background.color" description="全体の背景" type="color" default="#ffffff"/>
+</Group>
+<Group description="ヘッダー" selector=".Header">
+<Variable name="header.background.color" description="ヘッダー背景" type="color" default="#ffffff"/>
+<Variable name="header.topborder.color" description="ヘッダー上線" type="color" default="#008ec2"/>
+<Variable name="header.title.color" description="ヘッダー文字" type="color" default="#000000"/>
+<Variable name="header.description.color" description="ヘッダー説明文" type="color" default="#000000"/>
+</Group>
+<Group description="ヘッダーナビ" selector=".PageList">
+<Variable name="headernavi.background.color" description="ヘッダーナビ背景" type="color" default="#4b99b5"/>
+<Variable name="headernavi.link.color" description="リンク背景" type="color" default="#4b99b5"/>
+<Variable name="headernavi.link.hover" description="リンク背景&#65288;カーソル&#65289;" type="color" default="#4b99b5"/>
+<Variable name="headernavi.font.color" description="リンク文字" type="color" default="#ffffff"/>
+<Variable name="headernavi.font.hover" description="リンク文字&#65288;カーソル&#65289;" type="color" default="#ffffff"/>
+</Group>
+<Group description="TOP&#12289;カテゴリーの記事一覧" selector=".article-list">
+<Variable name="articlelist.background.color" description="カーソル合わせた時の背景" type="color" default="#f9f9f9"/>
+<Variable name="articlelist.posttag.color" description="ラベル名の背景" type="color" default="#008ec2"/>
+<Variable name="articlelist.posttag.font" description="ラベル名の文字" type="color" default="#ffffff"/>
+</Group>
+<Group description="記事ページ" selector=".entry-content">
+<Variable name="kizi.background" description="記事部分の背景" type="color" default="#ffffff"/>
+<Variable name="entryh2.color" description="大見出し(h2)の文字色" type="color" default="#ffffff"/>
+<Variable name="entryh2.background" description="大見出し(h2)の背景色" type="color" default="#008ec2"/>
+<Variable name="entryh3.border" description="中見出し(h3)の左線" type="color" default="#008ec2"/>
+<Variable name="entryh3.color" description="中見出し(h3)の文字色" type="color" default="#008ec2"/>
+</Group>
+<Group description="関連記事" selector="#related-posts">
+<Variable name="related.color" description="文字の色(カーソル時)" type="color" default="#ffffff"/>
+<Variable name="related.background" description="背景の色(カーソル時)" type="color" default="#008ec2"/>
+</Group>
+<Group description="ページナビ" selector="#blog-pager">
+<Variable name="pager.color" description="文字の色" type="color" default="#666666"/>
+<Variable name="pager.background" description="背景の色" type="color" default="#ffffff"/>
+<Variable name="pager.border" description="周囲の線" type="color" default="#dedede"/>
+<Variable name="pager.color.hover" description="文字の色(カーソル時)" type="color" default="#ffffff"/>
+<Variable name="pager.background.hover" description="背景の色(カーソル時)" type="color" default="#008ec2"/>
+</Group>
+<Group description="サイドバーの見出し" selector=".sidebar h2, h3, h4 ">
+<Variable name="sidebarh2.color" description="文字の色" type="color" default="#000000"/>
+<Variable name="sidebarh2.border" description="左線の色" type="color" default="#008ec2"/>
+</Group>
+<Group description="ラベルのリンク" selector=".list-label-widget-content">
+<Variable name="label.color" description="文字の色" type="color" default="#666666"/>
+<Variable name="label.border" description="線の色" type="color" default="#e4e4e4"/>
+<Variable name="label.background" description="背景の色" type="color" default="#ffffff"/>
+<Variable name="label.color.hover" description="文字の色(カーソル時)" type="color" default="#ffffff"/>
+<Variable name="label.background.hover" description="背景の色(カーソル時)" type="color" default="#008ec2"/>
+</Group>
+<Group description="人気記事のリンク" selector=".popular-post">
+<Variable name="popular.color" description="記事タイトルの色" type="color" default="#666666"/>
+<Variable name="popular.color.hover" description="記事タイトルの色(カーソル時)" type="color" default="#008ec2"/>
+</Group>
+<Group description="メニューを開くボタン(スマホ時のみ)" selector=".popular-post">
+<Variable name="button.color" description="ボタンの文字色" type="color" default="#ffffff"/>
+<Variable name="button.background" description="ボタンの背景色" type="color" default="#008ec2"/>
+</Group>
+body{
+font-family:Helvetica,"游ゴシック","Yu Gothic",sans-serif;
+margin:0;
+font-size:16px;
+line-height:1.6em;
+min-width: 1080px;
+}
+img, video, object {
+max-width: 100%;
+height: auto;
+border: none;
+vertical-align: bottom;
+display: block;
+}
+a{
+text-decoration:none;
+}
+.body-wrapper{
+background-color:#ffffff;  /*  全体の背景色  */
+}
+.section{
+margin:initial;
+}
+.widget{
+margin:initial;
+}
+/*  記事部分とサイドバー  */
+.content-wrapper{
+width: 1040px;  /*  記事部分&#12288;サイドバーの横幅  */
+margin-right: auto;
+margin-left: auto;
+padding-top:20px;
+}
+iframe{
+max-width:100%;
+}
+/*SNSボタンのカスタマイズ*/
+.sns{
+margin:10px auto;
+text-align:center;
+width:100%;
+}
+.sns ul {
+list-style:none !important;
+padding: initial !important;
+}
+.sns li {
+float:left;
+width:30%;
+height:54px;
+margin:20px 3px;
+list-style:none !important;
+}
+.sns li span,.sns .fa{
+font-size:30px !important;
+}
+.sns li a {
+font-size:18px;
+position:relative;
+display:block;
+padding:8px;
+transition:0.3s;
+font-weight: 700;
+border-radius:6px;
+text-align:center;
+text-decoration: none;
+}
+/* ツイッター */
+.twitter a {
+color:#00acee;
+background:#fff;
+border:2px solid #00acee
+}
+.twitter a:hover {
+background:#00acee;
+color:#fff;
+}
+/* Facebook */
+li.facebook {display: none;}
+.facebook a {
+background:#fff;
+color:#3b5998;
+border:2px solid #3b5998;
+}
+.facebook a:hover {
+background:#3b5998;
+color:#fff;
+}
+/* グーグル */
+li.google1 {display: none;}
+.google1 a {
+background:#fff;
+color:#db4a39;
+border:2px solid #db4a39;
+}
+.google1 a:hover {
+background:#db4a39;
+color:#fff;
+}
+/* はてぶ */
+.hatebu a {
+background:#fff;
+color:#5d8ac1;
+border:2px solid #5d8ac1;
+}
+.hatebu a:hover {
+background:#5d8ac1;
+color:#fff;
+}
+/* feedly  */
+li.feedly {display: none;}
+.feedly a{
+background:#fff;
+color:#87c040;
+border:2px solid #87c040;
+}
+.feedly a:hover{
+background:#87c040;
+color:#fff;
+}
+/* Pocket */
+li.pocket {display: none;}
+.pocket a {
+background:#fff;
+color:#f03e51;
+border:2px solid #f03e51;
+}
+.pocket a:hover {
+background:#f03e51;
+color:#fff;
+}
+.clearfix:after {
+content: "";
+display: block;
+clear: both;
+}
+.share-title{
+padding: .5em .75em;
+margin-bottom: 0px;
+background:#ffffff;
+color:#008ec2;
+}
+@media only screen and (max-width: 780px) {
+.sns li{
+width:47%;
+}
+}
+/*   リンク
+----------------------------------------------- */
+.post a{
+text-decoration:none;
+color:#3366cc;
+}
+.post a:hover {
+text-decoration:underline;
+color:#3366cc;
+}
+.post a:visited{
+color:#3366cc;
+}
+/*   引用
+--------------------------------------------- */
+blockquote {
+padding: 10px 30px;
+margin: 10px 0 20px 0;
+border: 1px solid #c8c8c8;
+overflow-wrap: break-word;
+}
+/*   記事のフォント
+----------------------------------------------- */
+.main-outer h1{
+font-size:24px;
+line-height:1.6em;
+margin-bottom:30px;
+}
+.entry-content h2{
+padding-left: 10px;
+border-left: solid 5px #008ec2;
+margin-top: 30px;
+margin-bottom: 20px;
+background:#ffffff;
+color:#008ec2;
+}
+.entry-content h3{
+font-size:20px;
+padding:15px 0 15px 10px;
+border-left: 8px solid #008ec2;
+color:#000000;
+}
+.main-outer p{
+font-size:16px;
+line-height:1.6em;
+padding-bottom:24px;
+}
+/*   ヘッダー
+--------------------------------------- */
+.Header{
+width:100%;
+background-color: #ffffff;
+padding-bottom: 0px;
+border-top:3px solid #ffffff;
+}
+#header-inner{
+width:1040px;
+margin:0 auto;
+padding-top:20px;
+padding-left:15px;
+padding-right:15px;
+}
+.Header p{
+margin:0;
+}
+.PageList{
+width:100%;
+background-color:#ffffff;
+}
+.grobal-navi{
+width:1040px;
+margin:0 auto;
+}
+/*   ブログタイトル
+---------------------------------------- */
+.header h1{
+margin-top:0;
+margin-bottom:0;
+}
+.header-title a{
+font-size:40px;
+font-weight:700;
+text-decoration:none;
+color:#000000;
+}
+.header-title a:hover{
+text-decoration:none;
+}
+.header-title a:visited{
+color:#000000;
+}
+/*   ブログ説明   */
+.header-description p{
+font-size:20px;
+margin-top:5px;
+color:#000000;
+}
+/*   ヘッダーナビゲーション
+------------------------------------------- */
+.header-nav{
+padding:0 !important;
+}
+.header-nav li{
+float:left;
+list-style:none;
+font-size:14px;
+padding:0;
+}
+.header-nav a{
+padding: 10px 20px;
+font-size: 14px;
+color:#008ec2;
+background:#ffffff;
+text-decoration: none;
+display: block;
+transition:.3s;
+}
+.header-nav a:hover{
+background-color:#ffffff;
+color:#008ec2;
+text-decoration:none;
+}
+div#Navbar1 {
+display: none;
+}
+/*   記事ページ
+-------------------------------------------- */
+.main-outer{
+float:left;
+width:710px;
+background:#ffffff;
+padding-left:20px;
+box-sizing:border-box;
+}
+.date-outer {
+border-right:1px solid #e4e4e4;
+padding-right:40px;
+}
+#main{
+margin:0;
+}
+.post-outer img{
+max-width:100%;/* 記事内の画像をはみ出させない */
+height:auto;
+}
+/*  記事ページのリストタグのデザイン  */
+.post-outer ul {
+list-style-type: disc;
+padding:20px;
+margin-bottom: 30px !important;
+}
+.post-outer ol {
+list-style-type: decimal;
+padding:20px;
+margin-bottom: 30px !important;
+}
+/*&#12288;記事ページの公開日 カテゴリ名 */
+p.kousin{
+font-size: 14px;
+display: inline-block;
+color: #696969;
+padding-bottom:3px !important;
+}
+p.kousin a {
+color: #696969;
+}
+.post.hentry {
+min-height:250px !important;
+}
+/*   トップページ&#12289;カテゴリ&#12289;アーカイブの記事一覧
+--------------------------------------------------------- */
+.article-list-link{
+text-decoration:none !important;
+}
+.article-list-link:hover{
+text-decoration:none !important;
+}
+.article-list{
+padding-bottom:30px;
+padding-top:10px;
+border-bottom:1px dashed #666;
+float:none;
+transition:0.3s;
+min-height: 250px;
+}
+.article-list:hover{
+background-color:#f9f9f9;
+}
+@media (min-width: 769px) {
+.article-list img{
+float:left;
+width:300px;
+height:210px;
+padding-right:20px;
+}
+}
+/*  記事一覧のタイトル  */
+.article-list-title{
+overflow:hidden;
+}
+.article-list-title h2{
+color:#666;
+font-size:21px;
+}
+article-list-link{
+color:#000;
+}
+.article-list-link:hover{
+text-decoration:none;
+}
+/*   記事一覧の公開日&#12289;カテゴリ名  */
+.post-timestamp {
+font-size:14px !important;
+margin-left: initial;
+opacity:0.7;
+color:#888;
+padding-bottom:2px !important;
+margin-right: 15px !important;
+display:inline-block;
+margin-top:0;
+}
+.post-tag{
+font-size:14px !important;
+background:#008ec2;
+padding:1px 4px !important;
+color:#ffffff;
+margin-top:0;
+display:inline-block;
+}
+/*   記事一覧の要約   */
+.snippet{
+font-size:14px;
+padding:0 !important;
+color:#888;
+margin-top:5px !important;
+margin-bottom:5px;
+line-height:1.4em !important;
+word-break:break-all;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 4;
+}
+/*   パンくずリスト
+--------------------------------------- */
+.breadcrumb-wrapper {
+margin: 30px 0 15px;
+}
+.breadcrumb {
+padding:0 !important;
+}
+.breadcrumb a {
+color: #666;
+font-size:13px;
+text-decoration:none;
+}
+.breadcrumb li {
+display: inline;
+list-style-type: none;
+}
+.breadcrumb  li:after {
+content: " > ";
+}
+/*   関連記事
+-------------------------------------- */
+#related-posts{
+width:auto;
+}
+#related-posts a{
+color:#666;
+transition:0.3s;
+}
+#related-posts a:hover{
+color:#ffffff;
+background:#008ec2;
+}
+#related-posts h2{
+padding: .5em .75em;
+margin-bottom: 10px;
+background:#ffffff;
+color:#008ec2;
+border-left: 2px solid #008ec2;
+}
+#related-posts .related_img {
+margin:5px;
+width: 140px;
+height: 100px;
+transition:all 300ms ease-in-out;
+}
+#related-title {
+font-size:12px;
+width:140px;
+height: 70px;
+font-weight:700;
+margin-right: 5px;
+margin-left: 5px;
+box-sizing: border-box;
+}
+#related-posts .related_img:hover{
+filter:alpha(opacity=70);
+}
+p.st-post-footer-buttons {
+display: none;
+}
+/*    ページナビゲーション
+------------------------------------------------ */
+#blog-pager a{
+font-size: 14px;
+padding:16px 8px;
+width:130px;
+box-sizing:border-box;
+color:#666666;
+background-color:#ffffff;
+border:1px solid #dedede;
+margin:3px 6px;
+display: inline-block;
+transition:0.3s;
+}
+#blog-pager a:hover{
+text-decoration:none;
+color:#ffffff;
+background:#008ec2;
+}
+#blog-pager .pages{border:none;}
+/*   サイドバー
+-------------------------------------- */
+.sidebar {
+width:330px;
+max-width:100%;
+float:left;
+padding-left:30px;
+box-sizing:border-box;
+}
+/*   サイドバー見出し   */
+.sidebar h2,h3,h4{
+padding:5px 0 5px 10px;
+font-size:20px;
+font-weight:700;
+border-left: 2px solid #008ec2;
+color:#008ec2;
+margin-bottom: 20px;
+margin-top: 30px;
+}
+/*   人気記事
+--------------------------------------- */
+.popular-post ul li a {
+font-size: 15px;
+color:#666666;
+font-weight: 700;
+}
+.popular-post ul li a:hover{
+color:#008ec2;
+}
+.popular-post ul li{
+margin: 5px 0;
+list-style-type:none;
+}
+.popular-post ul{
+padding:0;
+}
+.item-thumbnail{
+float:left;
+margin: 0 10px 10px 0;
+}
+.item-thumbnail a:hover{
+opacity:0.7;
+}
+.item-snippet p {
+overflow: hidden;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+font-size:13px;
+line-height:1.4em;
+margin: 0;
+}
+.item-content {
+margin: 5px;
+}
+/*   月別アーカイブ
+--------------------------------------- */
+.archive-list ul{
+padding:0 0 20px 10px;
+list-style-type:none;
+line-height:1.5em;
+}
+.archive-list ul a{
+color:#2098a8;
+}
+.archive-list ul li{
+padding-bottom:7px;
+}
+/*   ラベル
+-------------------------------------------- */
+.list-label-widget-content ul li a {
+font-size: 13px;
+color:#666666;
+transition:0.4s;  /* 徐々に変化させる */
+padding: 6px 10px;
+border: 1px solid #e4e4e4;
+border-radius: 2px;
+background-color:#ffffff
+}
+.list-label-widget-content ul li a:hover{
+color:#ffffff;
+background-color:#008ec2;
+text-decoration:none;
+}
+.list-label-widget-content ul{
+list-style-type: none;
+padding:0;
+line-height:initial;
+}
+.list-label-widget-content ul li{
+margin: 5px 2px;
+display:inline-block;
+}
+/*   フッター
+----------------------------------------------- */
+.footer-outer{
+color:#999;
+width:100%;
+clear:both;
+font-size:14px;
+padding-top:40px;
+padding-bottom:30px;
+}
+.footer-outer a{
+color:#999;
+}
+.footer-outer a:hover{
+text-decoration:none;
+}
+/*  メニューを開くボタン  */
+.button-toggle{
+display:none;
+}
+@media screen and (max-width: 768px){
+.button-toggle{
+display:block !important;
+width:90%;
+box-sizing:border-box;
+font-size:14px;
+color:#ffffff;
+padding:2px 10px;
+margin:5px 15px;
+background:#008ec2;
+}
+}
+/*   レスポンシブデザイン
+--------------------------------------------------- */
+@media screen and (max-width: 768px){
+body {
+min-width: initial;
+max-width: 720px;
+margin-left: auto;
+margin-right: auto;
+}
+.header-title a{
+font-size:28px;
+}
+.content-wrapper{
+width:auto;
+margin:0 auto;
+padding-top:5px;
+}
+.post-timestamp {
+margin:0 !important;
+font-size:12px !important;
+line-height: initial !important;
+opacity:1;
+margin-right:10px;
+display:inline-block !important;
+}
+.post-tag{
+font-size:12px !important;
+padding:1px 4px !important;
+line-height: initial !important;
+margin-bottom:5px;
+margin-left:5px;
+margin-left:5px;
+margin-right:5px;
+}
+#Header1{
+padding-bottom:0px;
+}
+#header-inner{
+width:auto;
+margin:0 auto;
+padding-top:10px;
+padding-left:15px;
+padding-right:15px;
+}
+.header-description p{
+font-size:18px;
+margin-top:0px;
+margin-bottom:10px;
+}
+nav{
+max-width:auto !important;
+height:auto;
+margin:0 auto;
+display:block;
+}
+.header-nav{
+width:auto;
+height:auto;
+background:#000;
+margin:0 auto;
+background:#f9f9f9;
+}
+.header-nav li {
+float:none;
+}
+.PageList{
+background-color:transparent;
+}
+.header-nav a{
+padding:10px 20px;
+font-size:14px;
+}
+.breadcrumb-wrapper {
+margin: 5px 0 5px;
+}
+.breadcrumb {
+padding:0px 15px !important;
+}
+p.kousin{
+margin: 5px 0 5px;
+}
+.main-outer{
+width:100%;
+padding:0 !important;
+float:none;
+margin-left:auto;
+margin-right:auto;
+}
+.main-outer h1{
+font-size:18px;
+margin-bottom:10px;
+}
+.entry-content h2{
+font-size:18px;
+margin-top:30px;
+margin-bottom:20px;
+}
+.post-body{
+padding:0 15px;
+width:100%;
+box-sizing: border-box;
+}
+.date-outer {
+border-right:none !important;
+padding-right:0 !important;
+}
+.grobal-navi{
+width:auto;
+}
+.article-list {
+padding:15px 5px 10px 5px !important;
+width:auto;
+float:none;
+}
+.article-list img{
+display: block;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 10px;
+}
+.article-thumbnail img{
+width:95% !important;
+height:auto !important;
+max-width:500px !important;
+max-height:300px !important;
+}
+.article-thumbnail{
+text-align:center;
+}
+.post-box{
+text-align:center;
+}
+.article-list-title{
+margin-top: auto;
+margin-bottom: auto;
+}
+.article-list-title h2{
+font-size:18px;
+}
+.snippet{
+display:none;
+}
+.sns ul{
+padding-left: 15px !important;
+padding-right: 15px !important;
+}
+.blog-pager{
+padding-left: 15px;
+padding-right: 15px;
+}
+#related-posts{
+width:98%;
+margin-left:auto;
+margin-right:auto;
+}
+#related-posts .related_img{
+width:140px;
+box-sizing:border-box;
+height:100px;
+}
+img{
+max-width:95%;
+height:auto;
+}
+.sidebar{
+width:90%;
+float:none;
+padding-left:initial;
+margin-left:15px;
+margin-right:15px;
+}
+.item-snippet{
+display:none;
+}
+.archive-list ul li{
+padding-bottom:10px;
+}
+.footer-outer{
+width:auto;
+margin:0;
+bottom:0;
+}
+#HTML2, #HTML4{
+width:90%;
+padding-left:initial;
+margin-left:auto;
+margin-right:auto;
+}
+#HTML2 h2, #HTML4 h2{
+margin-bottom: 20px;
+margin-top: 30px;
+}
+.share-title{
+font-size: 18px;
+margin-left: 15px;
+margin-right: 15px;
+}
+#related-posts h2{
+font-size: 20px;
+margin-left: 10px;
+margin-right: 10px;
+}
+}
+/*   各部デザイン
+--------------------------------------------------- */
+.adslot-table { display:inline-block !important; }
+.adslot-table-left {
+width:336px;
+height:280px;
+}
+@media (max-width: 339px) {
+.adslot-table-left {
+width:300px;
+height:250px;
+}
+}
+.adslot-table-right {
+width:300px;
+height:250px;
+}
+.inline-adslot {
+margin-left: auto;
+margin-right: auto;
+width:680px;
+height:164px;
+}
+.ads-table-area table, .ads-table-area th, .ads-table-area td {
+border: none;
+}
+@media (max-width: 680px) {
+.ads-table-area {
+margin: 0 -15px;
+overflow: hidden;
+}
+.ads-table-area td { text-align: center; }
+.adslot-table-right { display: none !important; }
+.inline-adslot {
+width: auto;
+height: auto;
+}
+}
+.ads-a8-article-left, .ads-a8-article-right{
+text-align:center;
+width:300px;
+margin-left: auto;
+margin-right: auto;
+}
+.ads-a8-footer img {
+display:inline;
+vertical-align:top;
+}
+.ads-a8-footer a img {
+margin: 0px 20px 20px 0px;
+}
+@media (max-width: 629px) {
+.td-ads-a8-article-right, .ads-a8-article-right { display: none !important; }
+.ads-table-article {border-collapse: collapse;}
+}
+.attention a {
+font-size: 15px;
+color: #666666;
+font-weight: 700;
+ext-decoration: none;
+}
+#comment-editor { height:200px; }
+#HTML2 h2, #HTML4 h2 {
+font-size: 20px;
+color: #008ec2;
+text-align:left;
+padding: 5px 0 5px 10px;
+border-left: 2px solid #008ec2;
+margin-bottom: 10px;
+}
+.amazlet-box-float-none .amazlet-image, .amazlet-box-float-none .amazlet-sub-info {float: none !important;}
+#Text1 {text-align:center;}
+@media (min-width: 769px) {
+#HTML2, #HTML4 {
+margin-top: 15px;
+margin-bottom: 15px;
+}
+#HTML2 h2, #HTML4 h2 {
+font-size: 22px;
+}
+/*
+.adslot-sidebar {
+height:600px !important;
+}
+*/
+}
+.ads-a8-sidebar-area{
+text-align:center;
+margin-left: auto;
+margin-right: auto;
+width: 100%;
+}
+.ads-a8-sidebar-area img {
+vertical-align: top;
+}
+.ads-a8-sidebar-left,.ads-a8-sidebar-right{
+display: inline-block;
+padding: 10px 0px;
+width:300px;
+}
+@media (max-width: 768px) {
+.window-ads-a8-sidebar {
+margin: 0 -15px;
+}
+.ads-a8-sidebar-left,.ads-a8-sidebar-right{
+padding: 10px 9px;
+}
+.ads-a8-sidebar-area img {
+max-width:100% !important;
+}
+#BlogArchive1 { display: none; }
+.adslot-individual-window{
+margin: 0 -15px;
+}
+}
+.adslot-individual-window{
+text-align: center;
+}
+.adslot-individual-area{
+margin-left: auto;
+margin-right: auto;
+max-height: 280px;
+max-width: 336px;
+padding: 0px;
+}
+.adslot-individual-area a img{
+margin-left: auto;
+margin-right: auto;
+}
+.adslot-individual{
+min-height: 250px;
+min-width: 300px;
+}
+#blog-pager {margin-top:0px;}
+
+--></style>
+<script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-49983802-2', 'auto', 'blogger');
+        ga('blogger.send', 'pageview');
+      </script>
+<!--Related Posts with thumbnails Scripts and Styles Start-->
+<!-- remove -->
+<style>
+@media (max-width: 680px) { 
+  .inline-ad, inline-adslot {
+    display: none;
+  } 
+}
+@media (min-width: 681px) { 
+  .inline-ad { margin-top: 0px; }
+}
+#HTML2, .adslot-footer { display: none; } 
+</style>
+<script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/related_posts_widget.js.ダウンロード" type="text/javascript"></script>
+<!-- Start 404 no adsense -->
+<!-- End 404 no adsense -->
+<!-- Start User Heat Tag -->
+<!-- <script type='text/javascript'> (function(add, cla){window[&#39;UserHeatTag&#39;]=cla;window[cla]=window[cla]||function(){(window[cla].q=window[cla].q||[]).push(arguments)},window[cla].l=1*new Date();var ul=document.createElement(&#39;script&#39;);var tag = document.getElementsByTagName(&#39;script&#39;)[0];ul.async=1;ul.src=add;tag.parentNode.insertBefore(ul,tag);})(&#39;//uh.nakanohito.jp/uhj2/uh.js&#39;, &#39;_uhtracker&#39;);_uhtracker({id:&#39;uhZdARnQYt&#39;}); </script> -->
+<!-- End User Heat Tag -->
+<!--Adsense 自動広告ここから &#65288;削除済&#65289; -->
+<script async="async" crossorigin="anonymous" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/f(2).txt" data-checked-head="true"></script>
+<!--Adsense 自動広告ここまで &#65288;削除済&#65289; -->
+<!-- プログラムコード埋め込み用 -->
+<link rel="stylesheet" type="text/css" href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/sunburst.css">
+<!-- プログラムコード埋め込み用 -->
+<link href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/authorization.css" media="all" onload="if(media!=&#39;all&#39;)media=&#39;all&#39;" rel="stylesheet"><noscript><link href='https://draft.blogger.com/dyn-css/authorization.css?targetBlogID=3795823380508458595&amp;zx=608877ad-6835-4939-a124-da7b963114d5' rel='stylesheet'/></noscript>
+<meta name="google-adsense-platform-account" content="ca-host-pub-1556223355139109">
+<meta name="google-adsense-platform-domain" content="blogspot.com">
+
+<!-- data-ad-client=ca-pub-7005253452599770 -->
+
+<meta http-equiv="origin-trial" content="A7CQXglZzTrThjGTBEn1rWTxHOEtkWivwzgea+NjyardrwlieSjVuyG44PkYgIPGs8Q9svD8sF3Yedn0BBBjXAkAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A3vKT9yxRPjmXN3DpIiz58f5JykcWHjUo/W7hvmtjgh9jPpQgem9VbADiNovG8NkO6mRmk70Kex8/KUqAYWVWAEAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A4A26Ymj79UVY7C7JGUS4BG1s7MdcDokAQf/RP0paks+RoTYbXHxceT/5L4iKcsleFCngi75YfNRGW2+SpVv1ggAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><link rel="preload" href="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/f(3).txt" as="script"><script type="text/javascript" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/f(3).txt"></script></head>
+<!--ここからHTML-->
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-NKH83HL' style='display:none;visibility:hidden' width='0'></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!--レスポンシブメニューのためのjavascriptコード-->
+<script type="text/javascript">
+ /*<![CDATA[*/
+$(function(){
+if ($(window).width()<900) {
+    $('nav').css('display','none');
+    $('.button-toggle').on('click', function() {
+        $('nav').slideToggle();
+    });
+	}
+});
+ /*]]>*/
+</script>
+<div class="body-wrapper" style="height: auto !important;">
+<!--ここからヘッダー-->
+<header>
+<div class="header-outer">
+<div class="header section" id="header"><div class="widget Header" data-version="1" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<div class="header-title">
+<a href="https://nine-num-98.blogspot.com/">
+9が好きな人のブログ
+</a>
+</div>
+<div class="header-description">
+<p>
+アニメ・ゲーム・ITの話題中心です。9が好き...9人のスクールアイドルが好き。
+</p>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</header>
+<div style="clear:both;"></div>
+<!--ヘッダーここまで-->
+<!--メイン-->
+<div class="content-wrapper">
+<!--コンテンツ部分-->
+<div class="main-outer">
+<!--404ページ-->
+<!--404ページここまで-->
+<div class="main section" id="main"><div class="widget Blog" data-version="1" id="Blog1">
+<div class="breadcrumb-wrapper">
+<ul class="breadcrumb" itemscope="itemscope" itemtype="https://schema.org/BreadcrumbList">
+<li itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem">
+<a href="https://nine-num-98.blogspot.com/" itemprop="item">
+<span itemprop="name">
+Home
+</span>
+</a>
+<meta content="1" itemprop="position">
+</li>
+<li itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem">
+<a href="https://nine-num-98.blogspot.com/search/label/IT%E3%83%BBAI" itemprop="item">
+<span itemprop="name">
+IT・AI
+</span>
+</a>
+<meta content="2" itemprop="position">
+</li>
+</ul>
+</div>
+<!--Can't find substitution for tag [defaultAdStart]-->
+
+                    <div class="date-outer">
+                  
+
+                    <div class="date-posts">
+                  
+<div class="post-outer">
+<div class="post hentry" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+<meta content="https://images-fe.ssl-images-amazon.com/images/I/41rdIpmxJ7L._SL160_.jpg" itemprop="image_url">
+<div class="post-body entry-content" id="post-body-279592882270766003" itemprop="articleBody">
+<div class="top-meta">
+<p class="kousin">
+<span class="post-timestamp">
+<i aria-hidden="true" class="fa fa-clock-o"></i>
+<script type="text/javascript">var hiduke = "2019年12月12日木曜日"</script>
+<meta content="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" itemprop="url">
+<abbr class="published" itemprop="datePublished" title="2019-12-12T21:37:00+09:00"><script type="text/javascript">document.write(hiduke)</script>2019年12月12日木曜日</abbr>
+</span>
+<span class="post-tag">
+<i aria-hidden="true" class="fa fa-tag"></i>
+IT・AI
+</span>
+</p>
+<h1 class="entry-title">
+正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】
+</h1>
+</div>
+テスト作業の工数見積もりを行うAIのプログラムについて、前回ご紹介いたしました。<br>
+<br>
+<a href="https://nine-num-98.blogspot.com/2019/11/ai-deep-learning.html" target="_blank">AIプログラミング（Pythonサンプル）：工数見積りする学習・予測プログラムを自作してみた【ラズパイ・機械学習・ディープラーニング】 | 9が好きな人のブログ</a><br>
+<br>
+自作の拙作AIですが使えそうでしょうかね？（苦笑）<br>
+今回は、サンプルプログラムのあるポイントについて、補足説明します。これは地味に重要なポイントで、ちょっと苦労した点でもあります。<br>
+<br>
+それは<b>「データ前処理・</b><b>標準化」</b>です。<br>
+<br>
+<h2>
+データ前処理とは</h2>
+AI(ディープラーニング)などの機械学習においては、学習データに対して予め<b>「前処理」</b>というものがしばしば行われます。前処理とは、何らかの方法で、学習データ（説明変数、目的変数）の値を、機械学習上の計算で扱いやすいように変形しておくことです。<br>
+<br>
+前処理で代表的なのが、学習データの値の範囲（スケール）を小さくしておくことです。<br>
+<br>
+身長[cm]などでいえば、<br>
+[160,165,170,175,180]<br>
+のようなデータが5つあったとき、これらを最大値の180で割り算して<br>
+[0.888888889,0.916666667,0.944444444,0.972222222,1.0]<br>
+のように、1.0以下の値に収めるようなことです。<br>
+<br>
+AIの学習データ（説明変数、目的変数）に対し、これを行うことで、以下の効果が得られ、学習スピードが向上します。<br>
+<br>
+・説明変数の値が小さくなることで、ニューラルネットワークの重み更新の振れ幅が抑えられ、重みが収束しやすくなる<br>
+・目的変数の値が小さくなることで、損失関数の値も小さくなり、誤差が収束しやすくなる<br>
+<br>
+<b>たとえていえば、プラモデルがいい例かもしれません。</b>現物そのままのサイズで、プラモを作ったり修繕しようとするのはとても大変で、手間も時間もコストもすごくかかります。<br>
+<br>
+実際に1/1スケールのガンプラなど出回ってませんよねｗ（お台場のガンダムくらい？）出回っているプラモデルは、扱いやすいよう100分の1程度のスケールに小さくされています。AIの学習データの前処理を行う目的もそれと似たような理由です。<br>
+<h2>
+データの標準化とは</h2>
+さて、前処理の手法としてよく用いられるのが<b>データの「正規化」</b>とよばれるものです。正規化とは、計算・解析において扱いやすいように、データをある規則に従って整形することをいいます。例えば、画像認識AIにおいては、学習データに使用する画素値を最大値(255)で割っておくことで、データ値を[0,1]の範囲に収めるという手法が用いられます。<br>
+<br>
+正規化の手法の中でも、特に以下のような特性を持つデータセットに変形することを<b>「標準化」</b>といいます。<br>
+<br>
+<b>・平均値=0</b><br>
+<b>・標準偏差=1</b><br>
+<br>
+標準偏差など、いきなり数学的な用語が出てきましたが、これらは統計学で使用される重要な概念です。また、上記の特性を満たすものは、<b>「正規分布」</b>と呼ばれる自然界でよくみられる形のデータ群です。<br>
+<br>
+これらの概念については、以下のサイトなどが参考になります。<br>
+<br>
+<a href="https://bellcurve.jp/statistics/course/7801.html" target="_blank">14-3. 標準化したデータの使い方 | 統計学の時間 | 統計WEB</a><br>
+<br>
+<a href="https://bellcurve.jp/statistics/course/19647.html" target="_blank">6-2. データを標準化してみよう | 統計学の時間 | 統計WEB</a><br>
+<br>
+標準化の計算は、それほど複雑ではありません。<br>
+<br>
+・データ値：x<br>
+・データセットの平均値：u<br>
+・データセットの標準偏差：σ<br>
+・標準化データ値:X<br>
+<br>
+とすると、以下の式で定義されます。<br>
+<br>
+<b>X = (x-u)/σ</b><br>
+<br>
+試しに先ほどの身長のデータセット [160,165,170,175,180] に対し、標準化を行ってみると以下のようになります。<br>
+<br>
+[-1.414213562, -0.707106781, 0, 0.707106781, 1.414213562]<br>
+<br>
+かなり小さい値になりましたね。<br>
+<br>
+AIにおけるデータ標準化のメリットの一つは、データのスケールを小さくして、学習速度を上げることです。それ以外にも、スケールの異なる複数の説明変数（身長、体重など）を正規化する場合にも使用されます。各説明変数間のスケールが大きく異なる場合、スケールの大きい変数が学習に影響を与えてしまうため、標準化を用いてこれを是正できます。<br>
+<br>
+機械学習における標準化の目的、メリットについては、以下のサイトなども参考になります。<br>
+<br>
+<a href="https://qiita.com/ttskng/items/2a33c1ca925e4501e609" target="_blank">Feature Scalingはなぜ必要？ - Qiita</a><br>
+<br>
+以下のディープラーニング本でも正規化、標準化について言及されており、参考になります。<br>
+<br>
+<br>
+<div class="amazlet-box" style="margin-bottom: 0px;">
+<div class="amazlet-image" style="float: left; margin: 0px 12px 1px 0px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07GWHP9YM/piano99-22/ref=nosim/" name="amazletlink" target="_blank"><img alt="はじめてのディープラーニング　Pythonで学ぶニューラルネットワークとバックプロパゲーション" id="id_469_d467_e238_1721" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/41rdIpmxJ7L._SL160_.jpg" style="border: none; height: auto; width: 113px;"></a></div>
+<div class="amazlet-info" style="line-height: 120%; margin-bottom: 10px;">
+<div class="amazlet-name" style="line-height: 120%; margin-bottom: 10px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07GWHP9YM/piano99-22/ref=nosim/" name="amazletlink" target="_blank">はじめてのディープラーニング　Pythonで学ぶニューラルネットワークとバックプロパゲーション</a><br>
+<div class="amazlet-powered-date" style="font-size: 80%; line-height: 120%; margin-top: 5px;">
+posted with <a href="http://www.amazlet.com/" target="_blank" title="amazlet">amazlet</a> at 20.03.07</div>
+</div>
+<div class="amazlet-detail">
+SBクリエイティブ (2018-08-28)<br>
+売り上げランキング: 76,394</div>
+<div class="amazlet-sub-info" style="float: left;">
+<div class="amazlet-link" style="margin-top: 5px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07GWHP9YM/piano99-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div>
+</div>
+</div>
+<div class="amazlet-footer" style="clear: left;">
+</div>
+</div>
+<br>
+<br>
+<div class="amazlet-box" style="margin-bottom: 0px;">
+<div class="amazlet-image" style="float: left; margin: 0px 12px 1px 0px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07SPY82LS/piano99-22/ref=nosim/" name="amazletlink" target="_blank"><img alt="必要な数学だけでわかる ディープラーニングの理論と実装" id="id_204d_6a73_555b_2569" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/519eC-Ako+L._SL160_.jpg" style="border: none; height: auto; width: 113px;"></a></div>
+<div class="amazlet-info" style="line-height: 120%; margin-bottom: 10px;">
+<div class="amazlet-name" style="line-height: 120%; margin-bottom: 10px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07SPY82LS/piano99-22/ref=nosim/" name="amazletlink" target="_blank">必要な数学だけでわかる ディープラーニングの理論と実装</a><br>
+<div class="amazlet-powered-date" style="font-size: 80%; line-height: 120%; margin-top: 5px;">
+posted with <a href="http://www.amazlet.com/" target="_blank" title="amazlet">amazlet</a> at 20.03.10</div>
+</div>
+<div class="amazlet-detail">
+秀和システム (2019-06-05)<br>
+売り上げランキング: 169,082</div>
+<div class="amazlet-sub-info" style="float: left;">
+<div class="amazlet-link" style="margin-top: 5px;">
+<a href="http://www.amazon.co.jp/exec/obidos/ASIN/B07SPY82LS/piano99-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div>
+</div>
+</div>
+<div class="amazlet-footer" style="clear: left;">
+</div>
+</div>
+<h2>
+学習時の標準化</h2>
+前回のAIサンプルプログラムにおいて、標準化によるデータ前処理は、学習プログラム、予測プログラム、プロットプログラムいずれにも実装されています。予測、プロットにおいては、標準化された出力データを、元のスケールに戻す<b>標準化の逆変換</b>も実装しています。<br>
+<br>
+<b>サンプルプログラムは↓のGitHub上にあります。</b><br>
+<a href="https://github.com/kotetsu99/deep_regression" target="_blank">https://github.com/kotetsu99/deep_regression</a><br>
+<br>
+学習のサンプルコード「deep_regression_train.py」では、学習用のcsvファイル読み込んだ後、学習データセットの標準化を実装しています。データセット（ベクトル）の標準化はPythonの計算ライブラリである、<b>scipy</b>を使用することで、簡単に実装できます。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">x </span><span class="pun">=</span><span class="pln"> scipy</span><span class="pun">.</span><span class="pln">stats</span><span class="pun">.</span><span class="pln">zscore</span><span class="pun">(</span><span class="pln">x</span><span class="pun">)</span></pre>
+<br>
+これを利用して、データセットの標準化を行っているのが以下のサブルーチンです。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln"> </span><span class="lit">66</span><span class="pln"> </span><span class="kwd">def</span><span class="pln"> load_csv</span><span class="pun">(</span><span class="pln">csvfile</span><span class="pun">):</span><span class="pln">
+ </span><span class="lit">67</span><span class="pln">     </span><span class="com"># csvをロードし、変数に格納</span><span class="pln">
+ </span><span class="lit">68</span><span class="pln">     df </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="pln">read_csv</span><span class="pun">(</span><span class="pln">csvfile</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">69</span><span class="pln">     dfv </span><span class="pun">=</span><span class="pln"> df</span><span class="pun">.</span><span class="pln">values</span><span class="pun">.</span><span class="pln">astype</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">float64</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">70</span><span class="pln">     n_dfv </span><span class="pun">=</span><span class="pln"> dfv</span><span class="pun">.</span><span class="pln">shape</span><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln">
+ </span><span class="lit">71</span><span class="pln">
+ </span><span class="lit">72</span><span class="pln">     </span><span class="com"># 学習データをシャッフル</span><span class="pln">
+ </span><span class="lit">73</span><span class="pln">     np</span><span class="pun">.</span><span class="pln">random</span><span class="pun">.</span><span class="pln">shuffle</span><span class="pun">(</span><span class="pln">dfv</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">74</span><span class="pln">
+ </span><span class="lit">75</span><span class="pln">     </span><span class="com"># 特徴量のセットを変数xに、ターゲットを変数yに格納</span><span class="pln">
+ </span><span class="lit">76</span><span class="pln">     x </span><span class="pun">=</span><span class="pln"> dfv</span><span class="pun">[:,</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">(</span><span class="pln">range</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">(</span><span class="pln">n_dfv</span><span class="pun">-</span><span class="lit">1</span><span class="pun">)))]</span><span class="pln">
+ </span><span class="lit">77</span><span class="pln">     y </span><span class="pun">=</span><span class="pln"> dfv</span><span class="pun">[:,</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">([(</span><span class="pln">n_dfv</span><span class="pun">-</span><span class="lit">1</span><span class="pun">)])]</span><span class="pln">
+ </span><span class="lit">78</span><span class="pln">
+ </span><span class="lit">79</span><span class="pln">     </span><span class="com"># データの標準化</span><span class="pln">
+ </span><span class="lit">80</span><span class="pln">     x </span><span class="pun">=</span><span class="pln"> scipy</span><span class="pun">.</span><span class="pln">stats</span><span class="pun">.</span><span class="pln">zscore</span><span class="pun">(</span><span class="pln">x</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">81</span><span class="pln">     y </span><span class="pun">=</span><span class="pln"> scipy</span><span class="pun">.</span><span class="pln">stats</span><span class="pun">.</span><span class="pln">zscore</span><span class="pun">(</span><span class="pln">y</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">82</span><span class="pln">
+ </span><span class="lit">83</span><span class="pln">     </span><span class="kwd">return</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span></pre>
+<br>
+説明変数x(テスト項目数)、目的変数y（消化日数）をcsvから読み込み、1列目=x、2列目=yとなる行列を生成。これを行をランダムに入れ替えてシャッフルした後、x,yを別々のベクトルとして格納、最後にそれぞれに対して標準化処理を行っています。標準化処理自体は、scipyを使えば簡単にできます。<br>
+<br>
+余談になりますが、学習データセットをシャッフルしているのは、モデルの学習に使用するデータに偏りを持たせないためです。モデルの学習には、KerasのModel クラスのfit関数を使用しています。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln"> </span><span class="lit">53</span><span class="pln">     </span><span class="com"># モデルの学習</span><span class="pln">
+ </span><span class="lit">54</span><span class="pln">     history </span><span class="pun">=</span><span class="pln"> dnn_model</span><span class="pun">.</span><span class="pln">fit</span><span class="pun">(</span><span class="pln">X</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">,</span><span class="pln"> epochs</span><span class="pun">=</span><span class="pln">nb_epochs</span><span class="pun">,</span><span class="pln"> validation_split</span><span class="pun">=</span><span class="lit">0.1</span><span class="pun">,</span><span class="pln"> batch_size</span><span class="pun">=</span><span class="pln">n    _bs</span><span class="pun">,</span><span class="pln"> verbose</span><span class="pun">=</span><span class="lit">2</span><span class="pun">)</span><span class="pln">
+</span></pre>
+<br>
+ここで学習に使うデータは最初の9割で、残りの1割は学習に使わずモデルの精度（損失関数の大きさ）を評価するデータとして使用されます。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">validation_split</span><span class="pun">=</span><span class="lit">0.1</span></pre>
+<br>
+という設定がそれです。<br>
+<br>
+学習データをシャッフルせずに学習させた場合、データセットの後尾部分（x:テスト項目数 が大きい値の箇所）が学習に使われないため、そのレンジに対する予測精度が落ちてしまいます。このため、学習データをシャッフルで対処しています。<br>
+# そもそも評価用にデータを割かないのであればシャッフルは不要ですが……<br>
+<br>
+<h2>
+予測・プロット時の標準化および逆変換</h2>
+予測のサンプルコード「deep_regression_predict.py」においては、<b>標準化</b>および標準化されたデータを<b>元のスケールに戻す逆変換</b>を実装しています。<br>
+<br>
+使用する学習済モデルは標準化された変数(x:テスト項目数)を、入力として使用します。このため予測プログラムに引数として渡すxに対し、標準化を行う必要があります。標準化に用いる、平均値と標準偏差ですが、<b>これは学習データのものを用います。</b>これを実施しているのが以下のサブルーチンです。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln"> </span><span class="lit">68</span><span class="pln"> </span><span class="kwd">def</span><span class="pln"> input_normalization</span><span class="pun">(</span><span class="pln">X</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">):</span><span class="pln">
+ </span><span class="lit">69</span><span class="pln">     </span><span class="com"># 入力ベクトルの各要素値を、対応する学習データの各列ベクトルで標準化</span><span class="pln">
+ </span><span class="lit">70</span><span class="pln">     n </span><span class="pun">=</span><span class="pln"> X</span><span class="pun">.</span><span class="pln">shape</span><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln">
+ </span><span class="lit">71</span><span class="pln">     </span><span class="kwd">for</span><span class="pln"> i </span><span class="kwd">in</span><span class="pln"> range</span><span class="pun">(</span><span class="pln">n</span><span class="pun">):</span><span class="pln">
+ </span><span class="lit">72</span><span class="pln">         t </span><span class="pun">=</span><span class="pln"> x</span><span class="pun">[:,</span><span class="pln">i</span><span class="pun">]</span><span class="pln">
+ </span><span class="lit">73</span><span class="pln">         X</span><span class="pun">[:,</span><span class="pln">i</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">X</span><span class="pun">[:,</span><span class="pln">i</span><span class="pun">]</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> t</span><span class="pun">.</span><span class="pln">mean</span><span class="pun">())</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> t</span><span class="pun">.</span><span class="pln">std</span><span class="pun">()</span><span class="pln">
+ </span><span class="lit">74</span><span class="pln">     </span><span class="kwd">return</span><span class="pln"> X</span></pre>
+<br>
+↑のサブルーチンを用いて、入力データ（テスト項目数）を標準化し、学習モデルに入力して予測値（消化日数）を得ます。<br>
+<br>
+<pre class="prettyprint prettyprinted" style=""><span class="pln"> </span><span class="lit">40</span><span class="pln">     </span><span class="com"># 入力データ標準化</span><span class="pln">
+ </span><span class="lit">41</span><span class="pln">     X </span><span class="pun">=</span><span class="pln"> input_normalization</span><span class="pun">(</span><span class="pln">X</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">42</span><span class="pln">
+ </span><span class="lit">43</span><span class="pln">     </span><span class="com"># 予測結果の取得</span><span class="pln">
+ </span><span class="lit">44</span><span class="pln">     result </span><span class="pun">=</span><span class="pln"> dnn_model</span><span class="pun">.</span><span class="pln">predict_on_batch</span><span class="pun">(</span><span class="pln">X</span><span class="pun">)</span><span class="pln">
+ </span><span class="lit">45</span><span class="pln">
+ </span><span class="lit">46</span><span class="pln">     </span><span class="com"># 予測結果に対し標準化の逆変換</span><span class="pln">
+ </span><span class="lit">47</span><span class="pln">     Y </span><span class="pun">=</span><span class="pln"> result </span><span class="pun">*</span><span class="pln"> y</span><span class="pun">.</span><span class="pln">std</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> y</span><span class="pun">.</span><span class="pln">mean</span><span class="pun">()</span></pre>
+<br>
+ここで予測に使用している学習済モデルは、学習時に標準化された正解値（消化日数）を用いて訓練しています。そのため出力「result」が標準化されたスケールで出てきます。<br>
+<br>
+予測したいのは、標準化されたスケールの予測値（消化日数）ではないため、これを元のスケールに戻す必要があります。そのため、<b>予測結果に対し標準化の逆変換</b>を行います。これは標準化の式を変形すれば簡単に計算できます。<br>
+<br>
+標準化の式；X = (x-u)/σ<br>
+逆変換の式：x = X*σ + u<br>
+<br>
+・データ値：x<br>
+・データセットの平均値：u<br>
+・データセットの標準偏差：σ<br>
+・標準化データ値:X<br>
+<br>
+平均値uと標準偏差σは、学習データ（消化日数）のものを用います。これにより、元のスケールで予測値を得ることができます。<br>
+<br>
+プロットサンプルコード「deep_regression_plot.py」についても、標準化・逆変換処理の要領は、予測プログラムとほぼ同じです。標準化・逆変換処理をかける入力値・出力値がスカラーからベクトルに変わっただけですね。<br>
+<br>
+AI（ディープラーニング）をはじめとする機械学習において、標準化等の正規化によるデータ前処理は頻繁に利用されます。その実装方法について、本記事が参考になれば幸いです。
+<div id="MBT-google-ad">
+</div>
+<h2>スポンサーリンク</h2>
+<div class="ads-table-area">
+<table width="100%">
+<tbody><tr>
+<td align="left" valign="top">
+<ins class="adsbygoogle adslot-table adslot-table-left" data-ad-client="ca-pub-7005253452599770" data-ad-format="rectangle" data-ad-slot="5436354243" style="display: block; height: 280px;" data-adsbygoogle-status="done"><div id="aswift_1_host" style="border: none; height: 280px; width: 336px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</td>
+<td align="center" valign="top">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<h4 class="share-title">この記事をシェアする</h4>
+<div class="sns">
+<ul class="clearfix">
+<li class="twitter"><a href="http://twitter.com/share?text=%E6%AD%A3%E8%A6%8F%E5%8C%96%20%E6%A8%99%E6%BA%96%E5%8C%96(%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92)%E3%81%AE%E7%90%86%E7%94%B1,%E5%BF%85%E8%A6%81%E6%80%A7,%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%A8%E5%85%83%E3%81%AB%E6%88%BB%E3%81%99(%E9%80%86%E5%A4%89%E6%8F%9B)%E6%96%B9%E6%B3%95%E3%82%92Python%E3%81%A7%E8%A7%A3%E8%AA%AC%E3%80%90%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0,%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A9%E3%83%AB%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%80%91%EF%BD%9C9%E3%81%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E4%BA%BA%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%20&amp;url=https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;" target="_blank"><i class="fa fa-twitter"></i><br>Twitter</a></li>
+<li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://nine-num-98.blogspot.com/2019/12/ai-normalization.html&amp;t=%E6%AD%A3%E8%A6%8F%E5%8C%96%20%E6%A8%99%E6%BA%96%E5%8C%96(%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92)%E3%81%AE%E7%90%86%E7%94%B1,%E5%BF%85%E8%A6%81%E6%80%A7,%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%A8%E5%85%83%E3%81%AB%E6%88%BB%E3%81%99(%E9%80%86%E5%A4%89%E6%8F%9B)%E6%96%B9%E6%B3%95%E3%82%92Python%E3%81%A7%E8%A7%A3%E8%AA%AC%E3%80%90%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0,%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A9%E3%83%AB%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%80%91%EF%BD%9C9%E3%81%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E4%BA%BA%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;" target="_blank"><i class="fa fa-facebook"></i><br>Facebook</a></li>
+<li class="google1"><a href="https://plus.google.com/share?url=https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;" target="_blank"><i class="fa fa-google-plus"></i><br>Google+</a></li>
+<li class="hatebu"><a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https://nine-num-98.blogspot.com/2019/12/ai-normalization.html&amp;%E6%AD%A3%E8%A6%8F%E5%8C%96%20%E6%A8%99%E6%BA%96%E5%8C%96(%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92)%E3%81%AE%E7%90%86%E7%94%B1,%E5%BF%85%E8%A6%81%E6%80%A7,%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%A8%E5%85%83%E3%81%AB%E6%88%BB%E3%81%99(%E9%80%86%E5%A4%89%E6%8F%9B)%E6%96%B9%E6%B3%95%E3%82%92Python%E3%81%A7%E8%A7%A3%E8%AA%AC%E3%80%90%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0,%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A9%E3%83%AB%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%80%91%EF%BD%9C9%E3%81%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E4%BA%BA%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;" target="_blank"><i class="fa">B!</i><br>はてブ</a></li>
+<li class="pocket"><a href="http://getpocket.com/edit?url=https://nine-num-98.blogspot.com/2019/12/ai-normalization.html" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;" target="_blank"><i class="fa fa-get-pocket"></i><br>Pocket</a></li>
+<li class="feedly">
+<a href="http://cloud.feedly.com/#subscription%2Ffeed%2F%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AEURL" target="blank"><i class="fa fa-rss"></i><br>Feedly</a>
+</li>
+</ul>
+</div>
+<div id="related-posts">
+<h2>関連記事（広告含む）</h2>
+<ins class="adsbygoogle" data-ad-client="ca-pub-7005253452599770" data-ad-format="autorelaxed" data-ad-slot="3624095564" data-matched-content-columns-num="1,2" data-matched-content-rows-num="5,3" data-matched-content-ui-type="image_card_stacked,image_card_stacked" style="display: block; height: 777px;" data-adsbygoogle-status="done"><div id="aswift_2_host" style="border: none; height: 777px; width: 649px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<div class="post-footer"></div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container">
+</div>
+</div>
+</div>
+</div>
+
+                  </div></div>
+                
+<!--Can't find substitution for tag [adEnd]-->
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="https://nine-num-98.blogspot.com/2019/12/ai-lovelive-01.html" id="Blog1_blog-pager-newer-link" title="次の投稿">＜Previous</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="https://nine-num-98.blogspot.com/2019/11/ai-deep-learning.html" id="Blog1_blog-pager-older-link" title="前の投稿">Next＞</a>
+</span>
+</div>
+<div class="clear"></div>
+</div></div>
+</div>
+<!--ここからサイドバー-->
+<div class="sidebar" style="height: auto !important;">
+<div class="section" id="sidebar-section" style="height: auto !important;"><div class="widget FeaturedPost" data-version="1" id="FeaturedPost1">
+<h2 class="title">注目の投稿</h2>
+<div class="post-summary">
+<div class="attention"><a href="https://nine-num-98.blogspot.com/2020/02/ai-camera-01.html">Raspberry Pi：画像認識(ディープラーニング)カメラで人物検出,顔認識【ラズパイ,Python,Picamera,Keras,OpenCV】</a></div><br>
+<img class="image" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/51xXemGFjnL._SL160_.jpg">
+</div>
+<style type="text/css">
+    .image {
+      width: 100%;
+      max-width:500px;
+    }
+  </style>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML3" style="height: auto !important;">
+<h2 class="title">スポンサーリンク</h2>
+<div class="widget-content">
+<!-- nine-num-98_sidebar -->
+<ins class="adsbygoogle adslot-sidebar" style="display: block; height: 250px;" data-ad-client="ca-pub-7005253452599770" data-ad-slot="7263248018" data-ad-format="auto" data-adsbygoogle-status="done"><div id="aswift_3_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 250px; width: 300px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;"><iframe id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;border:0;width:300px;height:250px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/ads.html" data-google-container-id="a!4"></iframe></div></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+</div><div class="widget PopularPosts" data-version="1" id="PopularPosts1">
+<h4>
+人気記事
+</h4>
+<div class="popular-post">
+<ul>
+<li>
+<div class="item-title">
+<a href="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html">
+正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】
+</a>
+</div>
+<div class="item-snippet">
+<p>
+テスト作業の工数見積もりを行うAIのプログラムについて、前回ご紹介いたしました。   AIプログラミング（Pythonサンプル）：工数見積りする学習・予測プログラムを自作してみた【ラズパイ・機械学習・ディープラーニング】 | 9が好きな人のブログ   自作の拙作AIですが使えそう...</p>
+</div>
+</li>
+<li>
+<div class="item-title">
+<a href="https://nine-num-98.blogspot.com/2021/10/selenium-edge-02.html">
+Python,Selenium：Edgeを自動操作するサンプルプログラム【Windows】
+</a>
+</div>
+<div class="item-snippet">
+<p>
+   前記事、Edgeブラウザ自動操作プログラムのPython版になります。基本的に同じ内容ですが、Pythonの作法はRubyとはまた違うので、その点を主に記していきます。  開発環境  ■OS、ブラウザ ・Windows10 64bit ・Edge ■プログラミング言語、主な...</p>
+</div>
+</li>
+<li>
+<div class="item-title">
+<a href="https://nine-num-98.blogspot.com/2020/03/ai-socket-03.html">
+Python socket通信の使い方,サンプル解説：画像ファイル転送し、ディープラーニングの認識結果を取得【Keras,ラズパイ】
+</a>
+</div>
+<div class="item-snippet">
+<p>
+ソケット通信と画像認識AIを組み合わせ、ネットワークを介して画像送付→認識結果取得を行うシステムを紹介しました。   https://nine-num-98.blogspot.com/2020/03/ai-socket-01.html   公開したプログラムの内容について解説しま...</p>
+</div>
+</li>
+<li>
+<div class="item-title">
+<a href="https://nine-num-98.blogspot.com/2020/03/dnn-visualization.html">
+Kerasモデル可視化：ネットワーク構造をグラフ,図等に出力【ニューラルネットワーク,ディープラーニング,機械学習,Python】
+</a>
+</div>
+<div class="item-snippet">
+<p>
+以下の、ハイパーパラメータ最適化に関する記事   https://nine-num-98.blogspot.com/2020/03/ai-hyper-opt-01.html   で少し触れましたが、出来上がったニューラルネットワークモデルの構造を可視化するためのプログラムについて...</p>
+</div>
+</li>
+</ul>
+<div class="clear"></div>
+</div>
+</div><div class="widget Label" data-version="1" id="Label1">
+<h4>
+カテゴリー
+</h4>
+<div class="widget-content list-label-widget-content">
+<ul>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/Appium%E3%83%BBKatalon%20Studio?max-results=9">
+Appium・Katalon Studio</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/IT%E3%83%BBAI?max-results=9">
+IT・AI</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/Selenium?max-results=9">
+Selenium</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E3%82%A2%E3%83%8B%E3%83%A1%E8%80%83%E5%AF%9F?max-results=9">
+アニメ考察</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BB%E3%82%B9%E3%83%BB%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B7%E3%83%91%E3%83%AB?max-results=9">
+プリンセス・プリンシパル</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E3%83%A9%E3%83%96%E3%83%A9%E3%82%A4%E3%83%96%EF%BC%81%E3%82%B5%E3%83%B3%E3%82%B7%E3%83%A3%E3%82%A4%E3%83%B3%21%21?max-results=9">
+ラブライブ！サンシャイン!!</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E3%83%A9%E3%83%96%E3%83%A9%E3%82%A4%E3%83%96%EF%BC%81%E8%99%B9%E3%83%B6%E5%92%B2?max-results=9">
+ラブライブ！虹ヶ咲</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E7%B5%90%E5%9F%8E%E5%8F%8B%E5%A5%88%E3%81%AF%E5%8B%87%E8%80%85%E3%81%A7%E3%81%82%E3%82%8B?max-results=9">
+結城友奈は勇者である</a></li>
+<li>
+<a dir="ltr" href="https://nine-num-98.blogspot.com/search/label/%E4%BB%95%E4%BA%8B%E3%83%BB%E7%94%9F%E6%B4%BB%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1?max-results=9">
+仕事・生活お役立ち</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+</div><div class="widget BlogSearch" data-version="1" id="BlogSearch1">
+<h2 class="title">このブログを検索</h2>
+<div class="widget-content">
+<div id="BlogSearch1_form">
+<form action="https://nine-num-98.blogspot.com/search" class="gsc-search-box" target="_top">
+<table cellpadding="0" cellspacing="0" class="gsc-search-box">
+<tbody>
+<tr>
+<td class="gsc-input">
+<input autocomplete="off" class="gsc-input" name="q" size="10" title="search" type="text" value="">
+</td>
+<td class="gsc-search-button">
+<input class="gsc-search-button" title="search" type="submit" value="検索">
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML5">
+<h2 class="title">お問い合わせ</h2>
+<div class="widget-content">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSc-6Rxgk0YlOt3jLVi-EL6K0VcRc9O1EQMJPLjXYQphVhSLwQ/viewform?usp=sf_link" style="color: #3366cc; text-decoration: none;" target="_blank">こちらからお願い致します</a>
+<br>
+<br>
+</div>
+<div class="clear"></div>
+</div><div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7005253452599770" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 250px;"><div id="aswift_4_host" style="border: none; height: 250px; width: 300px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;border:0;width:300px;height:250px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/ads(1).html" data-google-container-id="a!5"></iframe></div></ins></div><div class="widget HTML" data-version="1" id="HTML1">
+<h2 class="title">Twitter</h2>
+<div class="widget-content">
+<a href="https://twitter.com/Kotetsu0989" style="color: #3366cc; text-decoration: none;" target="_blank">@Kotetsu0989</a>
+<br>
+<br>
+</div>
+<div class="clear"></div>
+</div><div class="widget BlogArchive" data-version="1" id="BlogArchive1">
+<h4>
+ブログアーカイブ
+</h4>
+<div class="widget-content">
+<div class="archive-list">
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2023/">
+2023
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        4
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2023/05/">
+5月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2023/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2022/">
+2022
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2022/06/">
+6月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2022/05/">
+5月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2021/">
+2021
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        7
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2021/12/">
+12月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2021/10/">
+10月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2021/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2021/01/">
+1月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/">
+2020
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        16
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/12/">
+12月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/08/">
+8月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/03/">
+3月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        7
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2020/02/">
+2月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">
+                        ▼&nbsp;
+                      </span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/">
+2019
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        18
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">
+                        ▼&nbsp;
+                      </span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/12/">
+12月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+<ul class="posts">
+<li>
+<a href="https://nine-num-98.blogspot.com/2019/12/ai-lovelive-02.html">
+Python画像認識サンプル解説：OpenCV,Kerasでアニメキャラ顔認識【ディープラーニング,...
+</a>
+</li>
+<li>
+<a href="https://nine-num-98.blogspot.com/2019/12/ai-lovelive-01.html">
+Python 画像認識：機械学習AI(自作サンプル)でラブライブ虹ヶ咲キャラを顔認識【OpenCV,...
+</a>
+</li>
+<li>
+<a href="https://nine-num-98.blogspot.com/2019/12/ai-normalization.html">
+正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディ...
+</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/11/">
+11月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/08/">
+8月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/05/">
+5月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        5
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/03/">
+3月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2019/01/">
+1月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+</li>
+</ul>
+<div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7005253452599770" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 250px;"><div id="aswift_5_host" style="border: none; height: 250px; width: 290px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins></div></li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/">
+2018
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        21
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/12/">
+12月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/11/">
+11月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/07/">
+7月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        1
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        3
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/03/">
+3月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        4
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/02/">
+2月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        5
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2018/01/">
+1月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        5
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/">
+2017
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        95
+                        )
+                      </span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/12/">
+12月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        7
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/11/">
+11月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        5
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/10/">
+10月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        6
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/09/">
+9月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        7
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/08/">
+8月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        10
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/07/">
+7月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        8
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/06/">
+6月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        6
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/05/">
+5月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        8
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/04/">
+4月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        6
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/03/">
+3月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        2
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/02/">
+2月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        10
+                        )
+                      </span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+                          ►&nbsp;
+                        
+</span>
+</a>
+<a class="post-count-link" href="https://nine-num-98.blogspot.com/2017/01/">
+1月
+</a>
+<span class="post-count" dir="ltr">
+                        (
+                        20
+                        )
+                      </span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="footer-outer">
+<!--フッター-->
+<div class="section" id="footer"><div class="widget Text" data-version="1" id="Text1">
+<div class="widget-content">
+<span =""="" class="footer-menu" style="color:#999999;"><a href="https://nine-num-98.blogspot.com/"><b>Home</b></a> ｜ <a href="https://nine-num-98.blogspot.com/2017/01/blog-post_77.html"><b>プライバシーポリシー</b></a><br></span>
+</div>
+<div class="clear"></div>
+</div><div class="widget Attribution" data-version="1" id="Attribution1">
+<div class="widget-content" style="text-align: center;">
+Powered by <a href="https://draft.blogger.com/" target="_blank">Blogger</a>.
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/3104413102-widgets.js.ダウンロード"></script>
+<script type="text/javascript">
+window['__wavt'] = 'AOuZoY4CFAWt9h-HWezi5dqRpF9JORikew:1688624185505';_WidgetManager._Init('//draft.blogger.com/rearrange?blogID\x3d3795823380508458595','//nine-num-98.blogspot.com/2019/12/ai-normalization.html','3795823380508458595');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '3795823380508458595', 'title': '9\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0', 'url': 'https://nine-num-98.blogspot.com/2019/12/ai-normalization.html', 'canonicalUrl': 'https://nine-num-98.blogspot.com/2019/12/ai-normalization.html', 'homepageUrl': 'https://nine-num-98.blogspot.com/', 'searchUrl': 'https://nine-num-98.blogspot.com/search', 'canonicalHomepageUrl': 'https://nine-num-98.blogspot.com/', 'blogspotFaviconUrl': 'https://nine-num-98.blogspot.com/favicon.ico', 'bloggerUrl': 'https://draft.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': 'UA-49983802-2', 'encoding': 'UTF-8', 'locale': 'ja', 'localeUnderscoreDelimited': 'ja', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'isDynamicViewsAvailable': true, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x229\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0 - Atom\x22 href\x3d\x22https://nine-num-98.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x229\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0 - RSS\x22 href\x3d\x22https://nine-num-98.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x229\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0 - Atom\x22 href\x3d\x22https://draft.blogger.com/feeds/3795823380508458595/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x229\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0 - Atom\x22 href\x3d\x22https://nine-num-98.blogspot.com/feeds/279592882270766003/comments/default\x22 /\x3e\n', 'meTag': '', 'adsenseClientId': 'ca-pub-7005253452599770', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'adsenseAutoAds': false, 'boqCommentIframeForm': true, 'loginRedirectParam': '', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/6d43fc79cbbc58f9', 'plusOneApiSrc': 'https://apis.google.com/js/platform.js', 'disableGComments': true, 'blitzPostInterstitial': true, 'interstitialAccepted': false, 'sharing': {'platforms': [{'name': '\u30ea\u30f3\u30af\u3092\u53d6\u5f97', 'key': 'link', 'shareMessage': '\u30ea\u30f3\u30af\u3092\u53d6\u5f97', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Facebook \u3067\u5171\u6709', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Twitter \u3067\u5171\u6709', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Pinterest \u3067\u5171\u6709', 'target': 'pinterest'}, {'name': '\u30e1\u30fc\u30eb', 'key': 'email', 'shareMessage': '\u30e1\u30fc\u30eb', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 0, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27ja\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': '\u7d9a\u304d\u3092\u8aad\u3080', 'pageType': 'item', 'postId': '279592882270766003', 'postImageUrl': 'https://images-fe.ssl-images-amazon.com/images/I/41rdIpmxJ7L._SL160_.jpg', 'pageName': '\u6b63\u898f\u5316 \u6a19\u6e96\u5316(\u6a5f\u68b0\u5b66\u7fd2)\u306e\u7406\u7531,\u5fc5\u8981\u6027,\u30e1\u30ea\u30c3\u30c8\u3068\u5143\u306b\u623b\u3059(\u9006\u5909\u63db)\u65b9\u6cd5\u3092Python\u3067\u89e3\u8aac\u3010\u30c7\u30a3\u30fc\u30d7\u30e9\u30fc\u30cb\u30f3\u30b0,\u30cb\u30e5\u30fc\u30e9\u30eb\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u3011', 'pageTitle': '9\u304c\u597d\u304d\u306a\u4eba\u306e\u30d6\u30ed\u30b0: \u6b63\u898f\u5316 \u6a19\u6e96\u5316(\u6a5f\u68b0\u5b66\u7fd2)\u306e\u7406\u7531,\u5fc5\u8981\u6027,\u30e1\u30ea\u30c3\u30c8\u3068\u5143\u306b\u623b\u3059(\u9006\u5909\u63db)\u65b9\u6cd5\u3092Python\u3067\u89e3\u8aac\u3010\u30c7\u30a3\u30fc\u30d7\u30e9\u30fc\u30cb\u30f3\u30b0,\u30cb\u30e5\u30fc\u30e9\u30eb\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u3011', 'metaDescription': ''}}, {'name': 'features', 'data': {}}, {'name': 'messages', 'data': {'edit': '\u7de8\u96c6', 'linkCopiedToClipboard': '\u30ea\u30f3\u30af\u3092\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u306b\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002', 'ok': 'OK', 'postLink': '\u6295\u7a3f\u306e\u30ea\u30f3\u30af'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': '\u30ab\u30b9\u30bf\u30e0', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': '\u6b63\u898f\u5316 \u6a19\u6e96\u5316(\u6a5f\u68b0\u5b66\u7fd2)\u306e\u7406\u7531,\u5fc5\u8981\u6027,\u30e1\u30ea\u30c3\u30c8\u3068\u5143\u306b\u623b\u3059(\u9006\u5909\u63db)\u65b9\u6cd5\u3092Python\u3067\u89e3\u8aac\u3010\u30c7\u30a3\u30fc\u30d7\u30e9\u30fc\u30cb\u30f3\u30b0,\u30cb\u30e5\u30fc\u30e9\u30eb\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u3011', 'description': '\u30a2\u30cb\u30e1\u30fb\u30b2\u30fc\u30e0\u30fbIT\u30fbAI\u306e\u8a71\u984c\u4e2d\u5fc3\u306e\u30d6\u30ed\u30b0\u3067\u3059\u3002\u3088\u308d\u3057\u304f\u304a\u9858\u3044\u3057\u307e\u3059\uff5e', 'featuredImage': 'https://lh3-testonly.googleusercontent.com/blogger_img_proxy/AByxGDTgUTk9NwDqSr-nzDKrFqgDoG13xUxZUxBo7veXbJlotlCXCCMGoCYCtL0bjLwbjryPuAT2-Sg1s9erbr02QG8Ml11Du9V1VCNlYTDFA_0WxgI93lqd3X_wExIeDMHoZBSqkl-pkh4Adkdd', 'url': 'https://nine-num-98.blogspot.com/2019/12/ai-normalization.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 279592882270766003}}]);
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/772061759-lbx__ja.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/3268905543-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeaturedPostView', new _WidgetInfo('FeaturedPost1', 'sidebar-section', document.getElementById('FeaturedPost1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'sidebar-section', document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'sidebar-section', document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar-section', document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogSearchView', new _WidgetInfo('BlogSearch1', 'sidebar-section', document.getElementById('BlogSearch1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML5', 'sidebar-section', document.getElementById('HTML5'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-section', document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-section', document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': '\u8aad\u307f\u8fbc\u307f\u4e2d\x26hellip;'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'footer', document.getElementById('Text1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer', document.getElementById('Attribution1'), {}, 'displayModeFull'));
+</script>
+
+
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/jquery.min.js(1).ダウンロード" type="text/javascript"></script>
+<script type="text/javascript">
+                          $(document).ready(function(){ 
+                        $('#MBT-google-ad').insertBefore($('a[name="more"]'));
+                              }); 
+                        </script>
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/ads(2).html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins></body><!--Facebookのコード 消さないでね--><iframe id="google_esf" name="google_esf" src="./正規化 標準化(機械学習)の理由,必要性,メリットと元に戻す(逆変換)方法をPythonで解説【ディープラーニング,ニューラルネットワーク】 _ 9が好きな人のブログ_files/zrt_lookup.html" style="display: none;"></iframe></html>
