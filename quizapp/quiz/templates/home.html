@@ -12,24 +12,44 @@
         crossorigin="anonymous">
 </head>
 
+<script src="{% static 'quiz/js/auto_send_result_of_radio_botton.js' %}"></script>
+
 <body class="container">
     <h1 class="display-4 text-primary"> {{title}}</h1>
-    <form action="{% url 'home' %}" method="post">
-        <!-- 機能追加予定 -->
-        <!-- <input type="radio" name="mode_option" value="classic"> classic-->
-        <!--  <input type="radio" name="mode_option" value="modern"> modern -->
+
+    <!-- 地方選択フォームを表示する -->
+    <h2>
+        1. 出題範囲を選択する
+    </h2>
+    <form id="region_radio_button" method="post">
+        {% csrf_token %}
+        {{ region_option_form }}
     </form>
 
     <!-- ボタンによる遷移 -->
-    <p>
-        <font size="10">
-    </p><a href="{% url goto %}"> ゲームを始める </a></font>
-    </p>
+    <h2>
+        <p>
+        </p><a href="{% url goto %}"> 2. ゲームを始める </a>
+        </p>
+    </h2>
 
-    <p>
-        <font size="4">
-    </p><a href={{form_url}}"> 感想・意見を送る </a></font>
-    </p>
+    <br><br><br>
+
+    <h2>
+        </p><a href={{form_url}}"> 感想・意見を送る </a>
+    </h2>
+
+
+    <!-- ラジオボタンの変更イベントでフォームを送信する -->
+    <script>
+        document.querySelectorAll('input[name="region_option"]').forEach(function (input) {
+            input.addEventListener('change', submitForm);
+        });
+
+        function submitForm() {
+            document.getElementById('region_radio_button').submit();
+        }
+    </script>
 
 </body>
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import Quiz
+from .forms import region_option_class
 import random
 import yaml
 
@@ -23,6 +24,7 @@ class quiz_top(TemplateView):
         """
         get時（普通にアクセスしたとき）の挙動を定義
         """
+
         # 正解数の初期値を設定する
         request.session["win_counter"] = 0
         # 残機の初期値を設定する
@@ -31,16 +33,36 @@ class quiz_top(TemplateView):
         # ↓後で消す
         request.session["mode"] = "classic"
 
+        "地方設定"
+        # 地方選択フォームを作成し、self.paramsに渡す
+        # どっかでyamlに移行する
+        initial_value = "issyu"
+        region_option_form = region_option_class(
+            initial={"region_option": initial_value}
+        )
+        self.params["region_option_form"] = region_option_form
+        # 初期値を設定する
+        request.session["region_option"] = initial_value
+
         return render(request, "home.html", self.params)
 
     def post(self, request):
         """
         post時（ユーザーからの入力を受けたとき）の挙動を定義
         """
-        # ユーザーが入力したモードを保存する
-        # request.session["mode"] = request.POST["mode_option"]
+        "地方設定"
+        region_option_form = region_option_class(request.POST)
+        if region_option_form.is_valid():
+            # フォームの値を保存する
+            request.session["region_option"] = region_option_form.cleaned_data[
+                "region_option"
+            ]
+        else:
+            region_option_form = region_option_class()
 
-        return render(request, "top.html", self.params)
+        self.params["region_option_form"] = region_option_form
+
+        return render(request, "home.html", self.params)
 
 
 class quiz_individual(TemplateView):
@@ -77,7 +99,7 @@ class quiz_individual(TemplateView):
         request.sessionに正解が登録されていなかったら新規にクイズを作成して、登録
         """
         if "poke_num_answer" not in request.session:
-            self._make_quiz_set(mode=request.session["mode"])
+            self._make_quiz_set(region_option=request.session["region_option"])
             # クイズの正解をrequest.sessionに格納
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
@@ -134,7 +156,7 @@ class quiz_individual(TemplateView):
             request.session["win_counter"] += 1
 
             # クイズを新規作成し、request.sessionに格納
-            self._make_quiz_set(mode=request.session["mode"])
+            self._make_quiz_set(region_option=request.session["region_option"])
             request.session["poke_num_answer"] = self.poke_num_answer
             request.session["poke_name_answer"] = self.poke_name_answer
 
@@ -180,7 +202,7 @@ class quiz_individual(TemplateView):
                 )
 
                 # クイズを新規作成し、request.sessionに格納
-                self._make_quiz_set(mode=request.session["mode"])
+                self._make_quiz_set(region_option=request.session["region_option"])
                 request.session["poke_num_answer"] = self.poke_num_answer
                 request.session["poke_name_answer"] = self.poke_name_answer
 
@@ -202,7 +224,7 @@ class quiz_individual(TemplateView):
                 )
 
                 # クイズを作成する(次のクイズに向けて)
-                self._make_quiz_set(mode=request.session["mode"])
+                self._make_quiz_set(region_option=request.session["region_option"])
 
                 # クイズの正解をrequest.sessionに格納
                 request.session["poke_num_answer"] = self.poke_num_answer
@@ -211,7 +233,7 @@ class quiz_individual(TemplateView):
                 # ゲームオーバー画面に遷移
                 return render(request, "game_over.html", self.params)
 
-    def _make_quiz_set(self, mode):
+    def _make_quiz_set(self, region_option):
         """
         DBからクイズを作成
         具体的には、ポケモンの名前・番号の選択肢と、その答えをランダムに作成する。
@@ -220,7 +242,15 @@ class quiz_individual(TemplateView):
             mode: classicかmodernか。この値で乱数の範囲を決める. 機能追加するまではイッシュ地方まで
         """
         # 答えとなるポケモンの番号を作成
-        if mode == "classic":
+        if region_option == "kanto":
+            self.poke_num_answer = random.randint(1, 151)
+        elif region_option == "jouto":
+            self.poke_num_answer = random.randint(1, 251)
+        elif region_option == "houen":
+            self.poke_num_answer = random.randint(1, 386)
+        elif region_option == "sinou":
+            self.poke_num_answer = random.randint(1, 493)
+        elif region_option == "issyu":
             self.poke_num_answer = random.randint(1, 649)
         else:
             self.poke_num_answer = random.randint(1, len(self.poke_name_all_list))
